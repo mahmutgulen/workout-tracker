@@ -253,7 +253,16 @@
     align-items:center;
     justify-content:center;
     color: var(--text-faint);
+    padding:0;
+    margin:0;
+    border:0;
+    font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
+  .card-media:active{ opacity:.85; }
   .card-media img{
     position:absolute;
     inset:0;
@@ -261,6 +270,22 @@
     height:100%;
     object-fit: cover;
   }
+  .card-media-zoom-badge{
+    position:absolute;
+    right:4px;
+    bottom:4px;
+    width:20px;
+    height:20px;
+    border-radius:999px;
+    background: rgba(0,0,0,.55);
+    border: 1px solid rgba(255,255,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    pointer-events:none;
+  }
+  .card-media-zoom-badge svg{ width:11px; height:11px; }
   .card-body{
     flex:1;
     min-width:0;
@@ -328,13 +353,6 @@
     min-height: 36px;
   }
   .yt-btn:active{ background: rgba(255,45,45,.2); }
-  .yt-unverified{
-    display:block;
-    font-size: .6rem;
-    font-weight: 600;
-    color: var(--text-faint);
-    margin-top: 2px;
-  }
   .done-btn{
     margin-left:auto;
     display:inline-flex;
@@ -502,6 +520,69 @@
   }
   .btn-danger:active{ opacity:.85; }
 
+  /* ---------- Fullscreen image viewer ---------- */
+  .img-modal{
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    background: rgba(4,4,5,.94);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    touch-action: pinch-zoom pan-x pan-y;
+    padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom));
+  }
+  .img-modal[hidden]{ display:none; }
+  .img-modal-viewport{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .img-modal-viewport img{
+    max-width:100%;
+    max-height:100%;
+    object-fit: contain;
+    touch-action: pinch-zoom pan-x pan-y;
+    cursor: zoom-in;
+    transition: transform .15s ease;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .img-modal-viewport img.is-zoomed{
+    cursor: grab;
+  }
+  .img-modal-close{
+    position:absolute;
+    top: calc(14px + var(--safe-top));
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.28);
+    color:#fff;
+    font-size: 1.15rem;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index: 2;
+  }
+  .img-modal-close:active{ background: rgba(255,255,255,.22); }
+  .img-modal-hint{
+    position:absolute;
+    bottom: calc(14px + var(--safe-bottom));
+    left:0;
+    right:0;
+    text-align:center;
+    font-size: .72rem;
+    color: rgba(255,255,255,.55);
+    pointer-events:none;
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{ transition: none !important; }
   }
@@ -590,6 +671,14 @@
   </div>
 </div>
 
+<div class="img-modal" id="img-modal" hidden role="dialog" aria-modal="true" aria-label="Egzersiz görseli büyütülmüş görünüm">
+  <button type="button" class="img-modal-close" id="img-modal-close" aria-label="Görseli kapat">✕</button>
+  <div class="img-modal-viewport" id="img-modal-viewport">
+    <img id="img-modal-img" src="" alt="">
+  </div>
+  <p class="img-modal-hint">Yakınlaştırmak için resme dokunun veya parmaklarınızla açın</p>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -602,7 +691,6 @@
      "focus: true" markdown'da kalın (**...**) yazılmış, o günün bölgesel vurgusunu taşıyan hareketleri işaretler.
   */
   var IMG_BASE = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
-  var YT_CHANNEL_SEARCH = "https://www.youtube.com/@UnbrokenFitnessSolutions/search?query=";
 
   var PROGRAM = [
     {
@@ -610,16 +698,16 @@
       title: "Full Body A",
       subtitle: "Göğüs / Triceps Vurgulu",
       exercises: [
-        { name: "Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leg_Press", yt: "Leg Press" },
-        { name: "Leg Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Seated_Leg_Curl", yt: "Leg Curl" },
-        { name: "Bench Press", sets: "4 × 5–8", type: "compound", focus: true, img: "Barbell_Bench_Press_-_Medium_Grip", yt: "Bench Press" },
-        { name: "Incline Dumbbell Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Incline_Dumbbell_Press", yt: "Incline Dumbbell Press" },
-        { name: "Chest-Supported Row", sets: "3 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", yt: "Chest Supported Row" },
-        { name: "Lat Pulldown", sets: "2 × 8–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", yt: "Lat Pulldown" },
-        { name: "Lateral Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Side_Lateral_Raise", yt: "Lateral Raise" },
-        { name: "Triceps Pushdown", sets: "3 × 10–15", type: "isolation", focus: true, img: "Triceps_Pushdown", yt: "Triceps Pushdown" },
-        { name: "EZ-Bar Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "EZ-Bar_Curl", yt: "EZ Bar Curl" },
-        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+        { name: "Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leg_Press", ytId: "cDGOn-yfKJA" },
+        { name: "Leg Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Seated_Leg_Curl", ytId: "ELOCsoDSmrg" },
+        { name: "Bench Press", sets: "4 × 5–8", type: "compound", focus: true, img: "Barbell_Bench_Press_-_Medium_Grip", ytId: "rT7DgCr-3pg" },
+        { name: "Incline Dumbbell Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Incline_Dumbbell_Press", ytId: "oZVCBM9f8Eo" },
+        { name: "Chest-Supported Row", sets: "3 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "ro2vfHfD0DQ" },
+        { name: "Lat Pulldown", sets: "2 × 8–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "-c_TPoSUYuk" },
+        { name: "Lateral Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Side_Lateral_Raise", ytId: "3VcKaXpzqRo" },
+        { name: "Triceps Pushdown", sets: "3 × 10–15", type: "isolation", focus: true, img: "Triceps_Pushdown", ytId: "2-LAMcpzODU" },
+        { name: "EZ-Bar Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "EZ-Bar_Curl", ytId: "6LrOTcr595A" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", ytId: "4HQ8Am9IuME" }
       ]
     },
     {
@@ -627,16 +715,16 @@
       title: "Full Body B",
       subtitle: "Sırt / Biceps Vurgulu",
       exercises: [
-        { name: "Hack Squat veya Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Hack_Squat", yt: "Hack Squat" },
-        { name: "Romanian Deadlift", sets: "2 × 8–10", type: "compound", focus: false, img: "Romanian_Deadlift", yt: "Romanian Deadlift" },
-        { name: "Incline Machine Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leverage_Incline_Chest_Press", yt: "Incline Machine Press" },
-        { name: "Neutral-Grip Lat Pulldown", sets: "3 × 8–12", type: "compound", focus: true, img: "Close-Grip_Front_Lat_Pulldown", yt: "Neutral Grip Lat Pulldown" },
-        { name: "Seated Cable Row", sets: "3 × 8–12", type: "compound", focus: true, img: "Seated_Cable_Rows", yt: "Seated Cable Row" },
-        { name: "Shoulder Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Shoulder_Press", yt: "Shoulder Press" },
-        { name: "Reverse Pec Deck", sets: "2 × 12–20", type: "isolation", focus: false, img: "Reverse_Flyes", yt: "Reverse Pec Deck" },
-        { name: "Incline Dumbbell Curl", sets: "3 × 10–15", type: "isolation", focus: true, img: "Incline_Dumbbell_Curl", yt: "Incline Dumbbell Curl" },
-        { name: "Overhead Cable Triceps Extension", sets: "2 × 10–15", type: "isolation", focus: false, img: "Cable_Rope_Overhead_Triceps_Extension", yt: "Overhead Cable Triceps Extension" },
-        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+        { name: "Hack Squat veya Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Hack_Squat", ytId: "fuB13raVabg" },
+        { name: "Romanian Deadlift", sets: "2 × 8–10", type: "compound", focus: false, img: "Romanian_Deadlift", ytId: "JCXUYuzwNrM" },
+        { name: "Incline Machine Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leverage_Incline_Chest_Press", ytId: "LiDArz1R2NU" },
+        { name: "Neutral-Grip Lat Pulldown", sets: "3 × 8–12", type: "compound", focus: true, img: "Close-Grip_Front_Lat_Pulldown", ytId: "4P3-TXbH4tw" },
+        { name: "Seated Cable Row", sets: "3 × 8–12", type: "compound", focus: true, img: "Seated_Cable_Rows", ytId: "7o2oolbmzeI" },
+        { name: "Shoulder Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Shoulder_Press", ytId: "GFblCmuEE18" },
+        { name: "Reverse Pec Deck", sets: "2 × 12–20", type: "isolation", focus: false, img: "Reverse_Flyes", ytId: "e4dJ1QoxUtI" },
+        { name: "Incline Dumbbell Curl", sets: "3 × 10–15", type: "isolation", focus: true, img: "Incline_Dumbbell_Curl", ytId: "soxrZlIl35U" },
+        { name: "Overhead Cable Triceps Extension", sets: "2 × 10–15", type: "isolation", focus: false, img: "Cable_Rope_Overhead_Triceps_Extension", ytId: "mRozZKkGIfg" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", ytId: "4HQ8Am9IuME" }
       ]
     },
     {
@@ -644,16 +732,16 @@
       title: "Full Body C",
       subtitle: "Bacak / Omuz Vurgulu",
       exercises: [
-        { name: "Leg Press veya Hack Squat", sets: "4 × 8–12", type: "compound", focus: true, img: "Leg_Press", yt: "Leg Press" },
-        { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", yt: "Romanian Deadlift" },
-        { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", yt: "Machine Chest Press" },
-        { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", yt: "Chest Supported Row" },
-        { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", yt: "Lat Pulldown" },
-        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", yt: "Shoulder Press" },
-        { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", yt: "Lateral Raise" },
-        { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", yt: "Hammer Curl" },
-        { name: "Rope Pushdown", sets: "2 × 10–15", type: "isolation", focus: false, img: "Triceps_Pushdown_-_Rope_Attachment", yt: "Rope Pushdown" },
-        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+        { name: "Leg Press veya Hack Squat", sets: "4 × 8–12", type: "compound", focus: true, img: "Leg_Press", ytId: "cDGOn-yfKJA" },
+        { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", ytId: "JCXUYuzwNrM" },
+        { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", ytId: "rY0B8UFdne0" },
+        { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "ro2vfHfD0DQ" },
+        { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "-c_TPoSUYuk" },
+        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", ytId: "GFblCmuEE18" },
+        { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", ytId: "3VcKaXpzqRo" },
+        { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", ytId: "8XLxfXROrTo" },
+        { name: "Rope Pushdown", sets: "2 × 10–15", type: "isolation", focus: false, img: "Triceps_Pushdown_-_Rope_Attachment", ytId: "vB5OHsJ3EME" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", ytId: "4HQ8Am9IuME" }
       ]
     }
   ];
@@ -720,6 +808,10 @@
     '<path fill="currentColor" d="M2 9h2v6H2zM4 10h2v4H4zm3-2h2v8H7zm8 0h2v8h-2zm3 2h2v4h-2zm2-1h2v6h-2zM9 11h6v2H9z"/>' +
     '</svg>';
 
+  var ZOOM_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.32l4.89 4.89 1.42-1.42-4.89-4.89A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm-1 2v3H6v2h3v3h2v-3h3V9h-3V6H9z"/>' +
+    '</svg>';
+
   /* ============ Build exercise ids ============ */
   PROGRAM.forEach(function(day){
     day.exercises.forEach(function(ex, i){
@@ -733,14 +825,15 @@
   function cardHtml(day, ex){
     var done = !!progress[ex.id];
     var imgUrl = IMG_BASE + ex.img + "/0.jpg";
-    var ytUrl = YT_CHANNEL_SEARCH + encodeURIComponent(ex.yt) + "%20Unbroken%20Fitness%20Solutions";
+    var ytUrl = "https://www.youtube.com/watch?v=" + ex.ytId;
     return (
       '<article class="card' + (done ? " is-done" : "") + '" id="card-' + ex.id + '" data-id="' + ex.id + '">' +
-        '<div class="card-media">' +
+        '<button type="button" class="card-media" data-img="' + imgUrl + '" data-name="' + ex.name + '" aria-label="' + ex.name + ' görselini büyüt">' +
           FALLBACK_ICON +
           '<img src="' + imgUrl + '" alt="' + ex.name + ' hareketinin gösterimi" loading="lazy" ' +
             'onerror="this.style.display=\'none\'">' +
-        '</div>' +
+          '<span class="card-media-zoom-badge">' + ZOOM_ICON + '</span>' +
+        '</button>' +
         '<div class="card-body">' +
           '<div class="card-top">' +
             '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
@@ -748,12 +841,9 @@
           '</div>' +
           '<p class="ex-meta">' + TYPE_NOTE[ex.type] + '</p>' +
           '<div class="card-actions">' +
-            '<div>' +
-              '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' için Unbroken Fitness Solutions kanalında video ara">' +
-                YT_ICON + '<span>Videoyu Ara</span>' +
-              '</a>' +
-              '<span class="yt-unverified">Kanalda ara · doğrulanmış eşleşme değil</span>' +
-            '</div>' +
+            '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
+              YT_ICON + '<span>Videoyu İzle</span>' +
+            '</a>' +
             '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
               '<span class="done-dot">' + CHECK_ICON + '</span>' +
               '<span class="done-label">' + (done ? "Tamamlandı" : "İşaretle") + '</span>' +
@@ -846,6 +936,12 @@
       return;
     }
 
+    var mediaBtn = e.target.closest(".card-media");
+    if (mediaBtn){
+      openImageModal(mediaBtn.getAttribute("data-img"), mediaBtn.getAttribute("data-name"));
+      return;
+    }
+
     var resetDayBtn = e.target.closest(".reset-day-btn");
     if (resetDayBtn){
       e.preventDefault();
@@ -909,6 +1005,92 @@
   overlay.addEventListener("click", function(e){
     if (e.target === overlay) confirmCancel.click();
   });
+
+  /* ============ Fullscreen image viewer ============
+     Native pinch-to-zoom is left enabled (no touch-action:none anywhere) so
+     mobile users can always zoom with two fingers. A lightweight, dependency-free
+     tap-to-zoom + drag-to-pan is layered on top for mouse users and quick taps.
+  */
+  var imgModal = document.getElementById("img-modal");
+  var imgModalViewport = document.getElementById("img-modal-viewport");
+  var imgModalImg = document.getElementById("img-modal-img");
+  var imgModalClose = document.getElementById("img-modal-close");
+  var imgModalLastFocused = null;
+  var zoomScale = 1, zoomX = 0, zoomY = 0;
+  var dragging = false, dragStartX = 0, dragStartY = 0, dragOriginX = 0, dragOriginY = 0;
+
+  function applyZoomTransform(){
+    imgModalImg.style.transform = "translate(" + zoomX + "px," + zoomY + "px) scale(" + zoomScale + ")";
+    imgModalImg.classList.toggle("is-zoomed", zoomScale > 1);
+  }
+
+  function resetZoom(){
+    zoomScale = 1; zoomX = 0; zoomY = 0;
+    imgModalImg.style.transformOrigin = "center center";
+    applyZoomTransform();
+  }
+
+  function openImageModal(src, name){
+    imgModalLastFocused = document.activeElement;
+    imgModalImg.src = src;
+    imgModalImg.alt = name + " hareketinin büyütülmüş görseli";
+    resetZoom();
+    imgModal.hidden = false;
+    imgModalClose.focus();
+    document.addEventListener("keydown", onImgModalKeydown);
+  }
+
+  function closeImageModal(){
+    imgModal.hidden = true;
+    resetZoom();
+    document.removeEventListener("keydown", onImgModalKeydown);
+    if (imgModalLastFocused) imgModalLastFocused.focus();
+  }
+
+  function onImgModalKeydown(e){
+    if (e.key === "Escape") closeImageModal();
+  }
+
+  imgModalClose.addEventListener("click", closeImageModal);
+
+  imgModal.addEventListener("click", function(e){
+    if (e.target === imgModal || e.target === imgModalViewport) closeImageModal();
+  });
+
+  // Tap/click toggles a fixed zoom level, centered on the tap point.
+  imgModalImg.addEventListener("click", function(e){
+    if (dragging) return;
+    if (zoomScale > 1){
+      resetZoom();
+      return;
+    }
+    var rect = imgModalImg.getBoundingClientRect();
+    var originX = ((e.clientX - rect.left) / rect.width) * 100;
+    var originY = ((e.clientY - rect.top) / rect.height) * 100;
+    imgModalImg.style.transformOrigin = originX + "% " + originY + "%";
+    zoomScale = 2.5;
+    applyZoomTransform();
+  });
+
+  // Simple single-pointer drag-to-pan while zoomed (does not block native pinch-zoom).
+  imgModalImg.addEventListener("pointerdown", function(e){
+    if (zoomScale <= 1) return;
+    dragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    dragOriginX = zoomX;
+    dragOriginY = zoomY;
+    imgModalImg.setPointerCapture(e.pointerId);
+  });
+  imgModalImg.addEventListener("pointermove", function(e){
+    if (!dragging) return;
+    zoomX = dragOriginX + (e.clientX - dragStartX);
+    zoomY = dragOriginY + (e.clientY - dragStartY);
+    applyZoomTransform();
+  });
+  function endDrag(){ dragging = false; }
+  imgModalImg.addEventListener("pointerup", endDrag);
+  imgModalImg.addEventListener("pointercancel", endDrag);
 
   /* ============ Init ============ */
   updateProgressUI();
