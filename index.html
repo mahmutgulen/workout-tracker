@@ -208,22 +208,31 @@
   /* ---------- Exercise card ---------- */
   .card{
     display:flex;
-    gap: 12px;
+    flex-direction:column;
+    gap: 10px;
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 10px;
-    transition: opacity .2s ease, border-color .2s ease;
+    border-radius: 16px;
+    padding: 12px;
+    transition: background-color .2s ease, border-color .2s ease;
   }
   .card.is-done{
-    border-color: rgba(53,196,122,.4);
+    background: rgba(53,196,122,.07);
+    border-color: rgba(53,196,122,.38);
+  }
+
+  /* Top region: image + name/sets grouped together */
+  .card-top{
+    display:flex;
+    gap: 12px;
+    align-items:center;
   }
   .card-media{
     position:relative;
-    width: 76px;
-    height: 76px;
+    width: 88px;
+    height: 88px;
     flex-shrink:0;
-    border-radius: var(--radius-sm);
+    border-radius: 14px;
     overflow:hidden;
     background: #101114;
     display:flex;
@@ -251,10 +260,10 @@
     position:absolute;
     right:4px;
     bottom:4px;
-    width:20px;
-    height:20px;
+    width:22px;
+    height:22px;
     border-radius:999px;
-    background: rgba(0,0,0,.55);
+    background: rgba(0,0,0,.6);
     border: 1px solid rgba(255,255,255,.25);
     display:flex;
     align-items:center;
@@ -262,21 +271,18 @@
     color:#fff;
     pointer-events:none;
   }
-  .card-media-zoom-badge svg{ width:11px; height:11px; }
-  .card-body{
+  .card-media-zoom-badge svg{ width:12px; height:12px; }
+  .card-heading{
     flex:1;
     min-width:0;
     display:flex;
     flex-direction:column;
     gap: 5px;
   }
-  .card-top{
-    display:block;
-  }
   .ex-name{
-    font-size: 1.02rem;
+    font-size: 1rem;
     font-weight: 800;
-    line-height:1.3;
+    line-height:1.28;
     overflow-wrap: anywhere;
   }
   .focus-badge{
@@ -285,7 +291,7 @@
     vertical-align:middle;
     background: var(--accent-dim);
     color: var(--accent);
-    font-size: .62rem;
+    font-size: .6rem;
     font-weight: 800;
     letter-spacing: .03em;
     padding: 2px 6px;
@@ -293,51 +299,45 @@
     white-space:nowrap;
   }
   .ex-sets-prominent{
-    margin-top: 4px;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--accent);
     letter-spacing: .01em;
-  }
-  .card-actions{
-    margin-top: 6px;
-    display:flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    line-height:1.2;
   }
 
-  /* ---------- Collapsible exercise info ---------- */
-  .ex-info{
-    margin-top: 6px;
-  }
+  /* ---------- Collapsible exercise info: subtle secondary control ---------- */
+  .ex-info{ }
   .ex-info > summary{
     list-style:none;
     cursor:pointer;
     display:inline-flex;
     align-items:center;
-    gap:5px;
-    font-size: .74rem;
+    gap:6px;
+    min-height: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px 6px 10px;
+    font-size: .72rem;
     font-weight: 700;
     color: var(--text-dim);
-    padding: 4px 0;
     -webkit-tap-highlight-color: transparent;
   }
   .ex-info > summary::-webkit-details-marker{ display:none; }
-  .ex-info > summary::before{
-    content: "▸";
-    font-size: .65rem;
+  .ex-info-chevron{
+    display:inline-flex;
     color: var(--text-faint);
     transition: transform .15s ease;
   }
-  .ex-info[open] > summary::before{
-    transform: rotate(90deg);
-  }
+  .ex-info-chevron svg{ width:12px; height:12px; }
+  .ex-info[open] .ex-info-chevron{ transform: rotate(180deg); }
   .ex-info-body{
-    margin-top: 4px;
+    margin-top: 6px;
     padding: 10px 12px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 12px;
     display:flex;
     flex-direction:column;
     gap: 4px;
@@ -357,44 +357,51 @@
     font-size: .72rem;
     color: var(--text-faint);
   }
+
+  /* ---------- Action row: YouTube (secondary) + Completion (primary) ---------- */
+  .card-actions{
+    display:flex;
+    gap: 8px;
+  }
   .yt-btn{
+    flex: 0 0 auto;
     display:inline-flex;
     align-items:center;
     gap: 6px;
-    background: var(--yt-red-dim);
-    border: 1px solid rgba(255,77,77,.35);
-    color: var(--yt-red);
-    font-size: .76rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: .78rem;
     font-weight: 700;
-    padding: 8px 10px;
+    padding: 0 14px;
     border-radius: 999px;
     text-decoration:none;
-    min-height: 36px;
+    min-height: 44px;
   }
-  .yt-btn:active{ background: rgba(255,45,45,.2); }
+  .yt-btn svg{ color: var(--yt-red); flex-shrink:0; }
+  .yt-btn:active{ background: var(--border); }
   .done-btn{
-    margin-left:auto;
+    flex: 1 1 auto;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap: 8px;
-    background: var(--accent-dim);
+    background: var(--accent);
     border: 2px solid var(--accent);
-    color: var(--accent);
-    font-size: .85rem;
+    color: #1a0a05;
+    font-size: .86rem;
     font-weight: 800;
     letter-spacing: .02em;
-    padding: 10px 16px;
+    padding: 0 16px;
     border-radius: 999px;
     min-height: 46px;
-    min-width: 132px;
   }
-  .done-btn:active{ opacity:.8; }
+  .done-btn:active{ opacity:.85; }
   .done-dot{
     width: 20px;
     height: 20px;
     border-radius: 999px;
-    border: 2px solid var(--accent);
+    border: 2px solid #1a0a05;
     flex-shrink:0;
     display:flex;
     align-items:center;
@@ -416,6 +423,11 @@
 
   .card.is-done .ex-name{
     color: var(--text-dim);
+  }
+
+  @media (max-width: 359px){
+    .card-actions{ flex-wrap: wrap; }
+    .yt-btn, .done-btn{ flex: 1 1 100%; }
   }
 
   /* ---------- About / info section ---------- */
@@ -913,35 +925,35 @@
     var setsProminent = setParts[0] + " SET × " + setParts[1] + " TEKRAR";
     return (
       '<article class="card' + (done ? " is-done" : "") + '" id="card-' + ex.id + '" data-id="' + ex.id + '">' +
-        '<button type="button" class="card-media" data-img="' + imgUrl + '" data-name="' + ex.name + '" aria-label="' + ex.name + ' görselini büyüt">' +
-          FALLBACK_ICON +
-          '<img src="' + imgUrl + '" alt="' + ex.name + ' hareketinin gösterimi" loading="lazy" ' +
-            'onerror="this.style.display=\'none\'">' +
-          '<span class="card-media-zoom-badge">' + ZOOM_ICON + '</span>' +
-        '</button>' +
-        '<div class="card-body">' +
-          '<div class="card-top">' +
+        '<div class="card-top">' +
+          '<button type="button" class="card-media" data-img="' + imgUrl + '" data-name="' + ex.name + '" aria-label="' + ex.name + ' görselini büyüt">' +
+            FALLBACK_ICON +
+            '<img src="' + imgUrl + '" alt="' + ex.name + ' hareketinin gösterimi" loading="lazy" ' +
+              'onerror="this.style.display=\'none\'">' +
+            '<span class="card-media-zoom-badge">' + ZOOM_ICON + '</span>' +
+          '</button>' +
+          '<div class="card-heading">' +
             '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
             '<div class="ex-sets-prominent">' + setsProminent + '</div>' +
           '</div>' +
-          '<details class="ex-info">' +
-            '<summary>Hareket Bilgisi</summary>' +
-            '<div class="ex-info-body">' +
-              '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
-              '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
-              '<p><strong>İpucu:</strong> ' + ex.info.cue + '</p>' +
-              '<p class="ex-info-meta">' + TYPE_NOTE[ex.type] + '</p>' +
-            '</div>' +
-          '</details>' +
-          '<div class="card-actions">' +
-            '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
-              YT_ICON + '<span>Videoyu İzle</span>' +
-            '</a>' +
-            '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
-              '<span class="done-dot">' + CHECK_ICON + '</span>' +
-              '<span class="done-label">' + (done ? "BASILDI" : "Tamamla") + '</span>' +
-            '</button>' +
+        '</div>' +
+        '<details class="ex-info">' +
+          '<summary><span>Hareket Bilgisi</span><span class="ex-info-chevron">' + CHEVRON_ICON + '</span></summary>' +
+          '<div class="ex-info-body">' +
+            '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
+            '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
+            '<p><strong>İpucu:</strong> ' + ex.info.cue + '</p>' +
+            '<p class="ex-info-meta">' + TYPE_NOTE[ex.type] + '</p>' +
           '</div>' +
+        '</details>' +
+        '<div class="card-actions">' +
+          '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
+            YT_ICON + '<span>Videoyu İzle</span>' +
+          '</a>' +
+          '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
+            '<span class="done-dot">' + CHECK_ICON + '</span>' +
+            '<span class="done-label">' + (done ? "BASILDI" : "Tamamla") + '</span>' +
+          '</button>' +
         '</div>' +
       '</article>'
     );
