@@ -654,18 +654,20 @@
   </div>
 </header>
 
-<main id="days-container">
-  <!-- Day sections injected by JS -->
-</main>
-
-<section class="final-progress" id="final-progress">
-  <h2 class="final-progress-title">Toplam İlerleme</h2>
-  <p class="final-progress-count" id="overall-count" aria-live="polite">0 / 0 hareket tamamlandı</p>
-  <div class="progress-track final-progress-track">
-    <div class="progress-fill" id="overall-fill"></div>
+<main class="page">
+  <div id="days-container">
+    <!-- Day sections injected by JS -->
   </div>
-  <button type="button" class="final-reset-btn" id="reset-all-btn">Tümünü Temizle</button>
-</section>
+
+  <section class="final-progress" id="final-progress">
+    <h2 class="final-progress-title">Toplam İlerleme</h2>
+    <p class="final-progress-count" id="overall-count" aria-live="polite">0 / 0 hareket tamamlandı</p>
+    <div class="progress-track final-progress-track">
+      <div class="progress-fill" id="overall-fill"></div>
+    </div>
+    <button type="button" class="final-reset-btn" id="reset-all-btn">Tümünü Temizle</button>
+  </section>
+</main>
 
 <template id="info-template">
   <details class="info">
@@ -799,23 +801,33 @@
       title: "Full Body C",
       subtitle: "Bacak / Omuz",
       exercises: [
-        { name: "Leg Press veya Hack Squat", sets: "4 × 8–12", type: "compound", focus: true, img: "Leg_Press", ytId: "cDGOn-yfKJA" },
-        { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", ytId: "JCXUYuzwNrM" },
-        { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", ytId: "rY0B8UFdne0" },
-        { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "ro2vfHfD0DQ" },
-        { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "-c_TPoSUYuk" },
-        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", ytId: "GFblCmuEE18" },
-        { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", ytId: "3VcKaXpzqRo" },
-        { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", ytId: "8XLxfXROrTo" },
-        { name: "Rope Pushdown", sets: "2 × 10–15", type: "isolation", focus: false, img: "Triceps_Pushdown_-_Rope_Attachment", ytId: "vB5OHsJ3EME" },
-        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", ytId: "4HQ8Am9IuME" }
+        { name: "Leg Press veya Hack Squat", sets: "4 × 8–12", type: "compound", focus: true, img: "Leg_Press", ytId: "cDGOn-yfKJA",
+          info: { target: "Ön kuadriseps", secondary: "Kalça ve hamstring", cue: "Ayaklarını omuz genişliğinde yerleştir, dizlerini içe çökertme." } },
+        { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", ytId: "e1pFg9Rz55k",
+          info: { target: "Hamstring", secondary: "Kalça (gluteus)", cue: "Sırtı düz tut, kalçayı geriye iterek barı bacak boyunca kaydır." } },
+        { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", ytId: "rY0B8UFdne0",
+          info: { target: "Göğüs", secondary: "Ön omuz ve triceps", cue: "Sırtını sabitle, tutamaçları kontrollü it." } },
+        { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "h2Xafysr43E",
+          info: { target: "Orta sırt (rhomboid, lat)", secondary: "Arka omuz ve biceps", cue: "Göğsünü desteğe yasla, momentum kullanmadan dirsekleri geriye çek." } },
+        { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "S0no-Q03h74",
+          info: { target: "Kanat kasları (lat)", secondary: "Biceps", cue: "Barı çeneye doğru çekerken göğsünü hafif dışa çıkar." } },
+        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", ytId: "tzZMsrzG_zE",
+          info: { target: "Omuz (deltoid)", secondary: "Triceps", cue: "Belini kamburlaştırmadan ağırlığı düz yukarı it." } },
+        { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", ytId: "LT1Eo-q58yg",
+          info: { target: "Yan omuz (lateral deltoid)", secondary: "Üst trapez", cue: "Dirseklerle öncülük et, momentum kullanma." } },
+        { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", ytId: "0IAM2YtviQY",
+          info: { target: "Biceps ve brakiyalis", secondary: "Ön kol", cue: "Bilekleri nötr tut, dirsekleri sabit tutarak kaldır." } },
+        { name: "Rope Pushdown", sets: "2 × 10–15", type: "isolation", focus: false, img: "Triceps_Pushdown_-_Rope_Attachment", ytId: "vB5OHsJ3EME",
+          info: { target: "Triceps", secondary: "—", cue: "Alt noktada ipi dışa doğru ayır, dirsekleri sabit tut." } },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", ytId: "4HQ8Am9IuME",
+          info: { target: "Baldır (gastrocnemius)", secondary: "Soleus", cue: "Üstte kısa bir süre sık, tam açıklıkta indir." } }
       ]
     }
   ];
 
   var TYPE_NOTE = {
-    compound: "Büyük hareket · Dinlenme 2–3 dk · 1–2 RIR",
-    isolation: "İzolasyon · Dinlenme 60–90 sn · 0–2 RIR"
+    compound: "Dinlenme: 2–3 dk · 1–2 RIR",
+    isolation: "Dinlenme: 60–90 sn · 0–2 RIR"
   };
 
   var STORAGE_KEY = "fullbody3_progress_v1";
@@ -879,6 +891,10 @@
     '<path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.32l4.89 4.89 1.42-1.42-4.89-4.89A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm-1 2v3H6v2h3v3h2v-3h3V9h-3V6H9z"/>' +
     '</svg>';
 
+  var CHEVRON_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M7 10l5 5 5-5z"/>' +
+    '</svg>';
+
   /* ============ Build exercise ids ============ */
   PROGRAM.forEach(function(day){
     day.exercises.forEach(function(ex, i){
@@ -893,6 +909,8 @@
     var done = !!progress[ex.id];
     var imgUrl = IMG_BASE + ex.img + "/0.jpg";
     var ytUrl = "https://www.youtube.com/watch?v=" + ex.ytId;
+    var setParts = ex.sets.split(" × ");
+    var setsProminent = setParts[0] + " SET × " + setParts[1] + " TEKRAR";
     return (
       '<article class="card' + (done ? " is-done" : "") + '" id="card-' + ex.id + '" data-id="' + ex.id + '">' +
         '<button type="button" class="card-media" data-img="' + imgUrl + '" data-name="' + ex.name + '" aria-label="' + ex.name + ' görselini büyüt">' +
@@ -904,16 +922,24 @@
         '<div class="card-body">' +
           '<div class="card-top">' +
             '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
-            '<span class="ex-sets">' + ex.sets + '</span>' +
+            '<div class="ex-sets-prominent">' + setsProminent + '</div>' +
           '</div>' +
-          '<p class="ex-meta">' + TYPE_NOTE[ex.type] + '</p>' +
+          '<details class="ex-info">' +
+            '<summary>Hareket Bilgisi</summary>' +
+            '<div class="ex-info-body">' +
+              '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
+              '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
+              '<p><strong>İpucu:</strong> ' + ex.info.cue + '</p>' +
+              '<p class="ex-info-meta">' + TYPE_NOTE[ex.type] + '</p>' +
+            '</div>' +
+          '</details>' +
           '<div class="card-actions">' +
             '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
               YT_ICON + '<span>Videoyu İzle</span>' +
             '</a>' +
             '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
               '<span class="done-dot">' + CHECK_ICON + '</span>' +
-              '<span class="done-label">' + (done ? "Tamamlandı" : "İşaretle") + '</span>' +
+              '<span class="done-label">' + (done ? "BASILDI" : "Tamamla") + '</span>' +
             '</button>' +
           '</div>' +
         '</div>' +
@@ -935,7 +961,7 @@
             '<span class="day-progress-text" id="day-progress-text-' + day.id + '">0/' + day.exercises.length + '</span>' +
             '<div class="mini-progress"><div class="mini-progress-fill" id="day-progress-fill-' + day.id + '"></div></div>' +
             '<button type="button" class="reset-day-btn" data-day="' + day.id + '" aria-label="' + day.title + ' gününü sıfırla">↺</button>' +
-            '<span class="chevron" aria-hidden="true">▾</span>' +
+            '<span class="chevron" aria-hidden="true">' + CHEVRON_ICON + '</span>' +
           '</div>' +
         '</summary>' +
         '<div class="day-body">' +
@@ -976,7 +1002,7 @@
     });
 
     var overallPct = totalAll ? Math.round((doneAll / totalAll) * 100) : 0;
-    overallCountEl.textContent = doneAll + " / " + totalAll + " tamamlandı";
+    overallCountEl.textContent = doneAll + " / " + totalAll + " hareket tamamlandı";
     overallFillEl.style.width = overallPct + "%";
   }
 
@@ -990,7 +1016,7 @@
 
     card.classList.toggle("is-done", done);
     btn.setAttribute("aria-checked", String(done));
-    label.textContent = done ? "Tamamlandı" : "İşaretle";
+    label.textContent = done ? "BASILDI" : "Tamamla";
 
     updateProgressUI();
   }
