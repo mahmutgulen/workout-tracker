@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3 Günlük Full Body Programı</title>
+<meta name="description" content="Mobil antrenman takip uygulaması: 3 günlük vurgulu full body programı.">
+<meta name="theme-color" content="#0b0b0d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Full Body 3">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b0b0d'/%3E%3Cpath fill='%23ff5a36' d='M2 9h2v6H2zM4 10h2v4H4zm3-2h2v8H7zm8 0h2v8h-2zm3 2h2v4h-2zm2-1h2v6h-2zM9 11h6v2H9z'/%3E%3C/svg%3E">
+<style>
+  /* ---------- Tokens ---------- */
+  :root{
+    color-scheme: dark;
+    --bg: #0b0b0d;
+    --surface: #17181c;
+    --surface-2: #202226;
+    --border: #2b2d33;
+    --text: #f2f2f4;
+    --text-dim: #9a9ca6;
+    --text-faint: #6c6e77;
+    --accent: #ff5a36;
+    --accent-dim: rgba(255,90,54,.14);
+    --good: #35c47a;
+    --good-dim: rgba(53,196,122,.14);
+    --yt-red: #ff4d4d;
+    --yt-red-dim: rgba(255,45,45,.12);
+    --radius-lg: 18px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.35;
+    overflow-x: hidden;
+    padding-bottom: calc(28px + var(--safe-bottom));
+  }
+  img{ max-width:100%; display:block; }
+  h1,h2,h3,p{ margin:0; }
+  button{ font-family:inherit; }
+  a{ color: inherit; }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Header ---------- */
+  .app-header{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11,11,13,.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: calc(12px + var(--safe-top)) 16px 12px;
+  }
+  .header-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .app-title{
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .app-subtitle{
+    margin-top: 2px;
+    font-size: .8rem;
+    color: var(--text-dim);
+  }
+  .reset-all-btn{
+    flex-shrink:0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: .78rem;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    min-height: 36px;
+  }
+  .reset-all-btn:active{ background: var(--surface); }
+
+  .overall-progress{
+    margin-top: 12px;
+  }
+  .overall-progress-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:6px;
+  }
+  .overall-progress-label{
+    font-size: .82rem;
+    color: var(--text-dim);
+  }
+  .overall-progress-count{
+    font-size: .95rem;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .progress-track{
+    height: 10px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow:hidden;
+    border: 1px solid var(--border);
+  }
+  .progress-fill{
+    height:100%;
+    background: linear-gradient(90deg, var(--accent), #ff8a5c);
+    border-radius: 999px;
+    width:0%;
+    transition: width .25s ease;
+  }
+
+  /* ---------- Main layout ---------- */
+  main{
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 14px 12px 0;
+  }
+
+  .day{
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .day > summary{
+    list-style:none;
+    cursor:pointer;
+    padding: 14px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 10px;
+  }
+  .day > summary::-webkit-details-marker{ display:none; }
+  .day-title-group h2{
+    font-size: 1.02rem;
+    font-weight: 800;
+  }
+  .day-subtitle{
+    display:block;
+    margin-top:2px;
+    font-size: .76rem;
+    color: var(--text-dim);
+  }
+  .day-meta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .day-progress-text{
+    font-size: .78rem;
+    font-weight:700;
+    color: var(--text-dim);
+    white-space:nowrap;
+  }
+  .mini-progress{
+    width: 46px;
+    height: 8px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow:hidden;
+    border: 1px solid var(--border);
+  }
+  .mini-progress-fill{
+    height:100%;
+    background: var(--accent);
+    width:0%;
+    transition: width .25s ease;
+  }
+  .reset-day-btn{
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: .95rem;
+    flex-shrink:0;
+  }
+  .reset-day-btn:active{ background: var(--surface-2); }
+  .chevron{
+    color: var(--text-faint);
+    font-size: .7rem;
+    transition: transform .2s ease;
+    flex-shrink:0;
+  }
+  .day[open] .chevron{ transform: rotate(180deg); }
+
+  .day-body{
+    border-top: 1px solid var(--border);
+    padding: 12px 12px 4px;
+  }
+  .cards{
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+
+  /* ---------- Exercise card ---------- */
+  .card{
+    display:flex;
+    gap: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    transition: opacity .2s ease, border-color .2s ease;
+  }
+  .card.is-done{
+    border-color: rgba(53,196,122,.4);
+  }
+  .card-media{
+    position:relative;
+    width: 76px;
+    height: 76px;
+    flex-shrink:0;
+    border-radius: var(--radius-sm);
+    overflow:hidden;
+    background: #101114;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--text-faint);
+  }
+  .card-media img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+  }
+  .card-body{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap: 5px;
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .ex-name{
+    font-size: .96rem;
+    font-weight: 700;
+    line-height:1.25;
+  }
+  .focus-badge{
+    display:inline-block;
+    margin-left:6px;
+    vertical-align:middle;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space:nowrap;
+  }
+  .ex-sets{
+    flex-shrink:0;
+    font-size: .86rem;
+    font-weight: 800;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 8px;
+    white-space:nowrap;
+  }
+  .ex-meta{
+    font-size: .74rem;
+    color: var(--text-dim);
+  }
+  .card-actions{
+    margin-top: 4px;
+    display:flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .yt-btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    background: var(--yt-red-dim);
+    border: 1px solid rgba(255,77,77,.35);
+    color: var(--yt-red);
+    font-size: .76rem;
+    font-weight: 700;
+    padding: 8px 10px;
+    border-radius: 999px;
+    text-decoration:none;
+    min-height: 36px;
+  }
+  .yt-btn:active{ background: rgba(255,45,45,.2); }
+  .yt-unverified{
+    display:block;
+    font-size: .6rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+  .done-btn{
+    margin-left:auto;
+    display:inline-flex;
+    align-items:center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 8px 12px 8px 8px;
+    border-radius: 999px;
+    min-height: 36px;
+  }
+  .done-btn:active{ background: var(--surface-2); }
+  .done-dot{
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 2px solid var(--text-faint);
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: transparent;
+  }
+  .done-dot svg{ opacity:0; width:12px; height:12px; }
+  .done-btn[aria-checked="true"]{
+    background: var(--good-dim);
+    border-color: rgba(53,196,122,.45);
+    color: var(--good);
+  }
+  .done-btn[aria-checked="true"] .done-dot{
+    background: var(--good);
+    border-color: var(--good);
+  }
+  .done-btn[aria-checked="true"] .done-dot svg{ opacity:1; }
+
+  .card.is-done .ex-name,
+  .card.is-done .ex-meta{
+    color: var(--text-dim);
+  }
+
+  /* ---------- About / info section ---------- */
+  .info{
+    margin: 18px 0 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    overflow:hidden;
+  }
+  .info > summary{
+    list-style:none;
+    cursor:pointer;
+    padding: 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-weight: 800;
+    font-size: .92rem;
+  }
+  .info > summary::-webkit-details-marker{ display:none; }
+  .info[open] .chevron{ transform: rotate(180deg); }
+  .info-body{
+    border-top: 1px solid var(--border);
+    padding: 14px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .info-block h3{
+    font-size: .82rem;
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .info-block ul{
+    margin:0;
+    padding-left: 18px;
+    font-size: .82rem;
+    color: var(--text-dim);
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .info-block p{
+    font-size: .82rem;
+    color: var(--text-dim);
+  }
+  .progression-example{
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: .8rem;
+    color: var(--text);
+  }
+  .progression-example code{
+    display:block;
+    margin-top:6px;
+    color: var(--text-dim);
+    font-family: inherit;
+  }
+
+  footer.app-footer{
+    text-align:center;
+    font-size: .7rem;
+    color: var(--text-faint);
+    padding: 18px 20px 4px;
+  }
+
+  /* ---------- Confirm overlay ---------- */
+  .overlay{
+    position: fixed;
+    inset:0;
+    background: rgba(0,0,0,.6);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    z-index: 50;
+    padding: 16px;
+    padding-bottom: calc(16px + var(--safe-bottom));
+  }
+  .overlay[hidden]{ display:none; }
+  .confirm-box{
+    width:100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+  }
+  .confirm-box h3{
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .confirm-box p{
+    font-size: .84rem;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .confirm-actions{
+    display:flex;
+    gap: 10px;
+  }
+  .btn{
+    flex:1;
+    padding: 12px;
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    min-height: 44px;
+  }
+  .btn-secondary{
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .btn-secondary:active{ background: var(--border); }
+  .btn-danger{
+    background: var(--accent);
+    color: #1a0a05;
+    border-color: var(--accent);
+  }
+  .btn-danger:active{ opacity:.85; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+
+  @media (min-width: 600px){
+    main{ max-width: 560px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <div>
+      <div class="app-title">3 Günlük Full Body Programı</div>
+      <div class="app-subtitle">Haftada 3 gün · Göğüs/Triceps · Sırt/Biceps · Bacak/Omuz vurgulu</div>
+    </div>
+    <button type="button" class="reset-all-btn" id="reset-all-btn">↺ Tümünü Sıfırla</button>
+  </div>
+
+  <div class="overall-progress">
+    <div class="overall-progress-row">
+      <span class="overall-progress-label">Toplam İlerleme</span>
+      <span class="overall-progress-count" id="overall-count" aria-live="polite">0 / 0 tamamlandı</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="overall-fill"></div>
+    </div>
+  </div>
+</header>
+
+<main id="days-container">
+  <!-- Day sections injected by JS -->
+</main>
+
+<template id="info-template">
+  <details class="info">
+    <summary>
+      <span>Program Hakkında</span>
+      <span class="chevron">▾</span>
+    </summary>
+    <div class="info-body">
+      <div class="info-block">
+        <h3>Yoğunluk ve Uygulama</h3>
+        <ul>
+          <li>Bench press, Romanian deadlift, leg press, row gibi büyük hareketlerde çoğunlukla 1–2 RIR bırak.</li>
+          <li>Curl, pushdown, lateral raise gibi izolasyon hareketlerinde 0–2 RIR aralığında çalış.</li>
+          <li>Form bozuluyorsa seti bitir; tekrar sayısı uğruna tekniği bozma.</li>
+          <li>Büyük hareketlerde dinlenme: 2–3 dakika.</li>
+          <li>İzolasyonlarda dinlenme: 60–90 saniye.</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h3>İlerleme Sistemi (Double Progression)</h3>
+        <p>Programda temel olarak double progression kullanılır. Bir hafta aynı ağırlıkla toplam tekrar sayısını artır; aralığın üst sınırına (ör. 4×8) ulaşınca ağırlığı artırıp aralığın alt kısmından yeniden ilerle.</p>
+        <div class="progression-example">
+          Örnek — Bench Press 4 × 5–8
+          <code>80 kg × 8 / 80 kg × 8 / 80 kg × 7 / 80 kg × 6</code>
+          <code>8/8/8/8 seviyesine ulaşınca ağırlığı artır.</code>
+        </div>
+      </div>
+      <div class="info-block">
+        <h3>Ana Hedef</h3>
+        <ul>
+          <li>Yağ kaybederken kas kazanımını desteklemek</li>
+          <li>Kuvveti artırmak veya en azından korumak</li>
+          <li>Tüm vücudu haftada 3 kez uyarmak</li>
+          <li>Göğüs, sırt, omuz, kol ve bacakların tamamını düzenli çalıştırmak</li>
+          <li>Her antrenmana belirgin bir bölgesel vurgu kazandırmak</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</template>
+
+<footer class="app-footer">İlerlemeniz bu cihazda saklanır (localStorage).</footer>
+
+<div class="overlay" id="confirm-overlay" hidden>
+  <div class="confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc">
+    <h3 id="confirm-title">Emin misiniz?</h3>
+    <p id="confirm-desc"></p>
+    <div class="confirm-actions">
+      <button type="button" class="btn btn-secondary" id="confirm-cancel">Vazgeç</button>
+      <button type="button" class="btn btn-danger" id="confirm-ok">Sıfırla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ Data ============
+     Kaynak: Antrenman.md — "3 Günlük Vurgulu Full Body Programı"
+     Her hareketin set x tekrar değeri markdown dosyasındaki tabloyla birebir aynıdır.
+     type: "compound" -> büyük hareket (Dinlenme 2-3 dk, 1-2 RIR)
+     type: "isolation" -> izolasyon hareketi (Dinlenme 60-90 sn, 0-2 RIR)
+     "focus: true" markdown'da kalın (**...**) yazılmış, o günün bölgesel vurgusunu taşıyan hareketleri işaretler.
+  */
+  var IMG_BASE = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
+  var YT_CHANNEL_SEARCH = "https://www.youtube.com/@UnbrokenFitnessSolutions/search?query=";
+
+  var PROGRAM = [
+    {
+      id: "a",
+      title: "Full Body A",
+      subtitle: "Göğüs / Triceps Vurgulu",
+      exercises: [
+        { name: "Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leg_Press", yt: "Leg Press" },
+        { name: "Leg Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Seated_Leg_Curl", yt: "Leg Curl" },
+        { name: "Bench Press", sets: "4 × 5–8", type: "compound", focus: true, img: "Barbell_Bench_Press_-_Medium_Grip", yt: "Bench Press" },
+        { name: "Incline Dumbbell Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Incline_Dumbbell_Press", yt: "Incline Dumbbell Press" },
+        { name: "Chest-Supported Row", sets: "3 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", yt: "Chest Supported Row" },
+        { name: "Lat Pulldown", sets: "2 × 8–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", yt: "Lat Pulldown" },
+        { name: "Lateral Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Side_Lateral_Raise", yt: "Lateral Raise" },
+        { name: "Triceps Pushdown", sets: "3 × 10–15", type: "isolation", focus: true, img: "Triceps_Pushdown", yt: "Triceps Pushdown" },
+        { name: "EZ-Bar Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "EZ-Bar_Curl", yt: "EZ Bar Curl" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+      ]
+    },
+    {
+      id: "b",
+      title: "Full Body B",
+      subtitle: "Sırt / Biceps Vurgulu",
+      exercises: [
+        { name: "Hack Squat veya Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Hack_Squat", yt: "Hack Squat" },
+        { name: "Romanian Deadlift", sets: "2 × 8–10", type: "compound", focus: false, img: "Romanian_Deadlift", yt: "Romanian Deadlift" },
+        { name: "Incline Machine Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leverage_Incline_Chest_Press", yt: "Incline Machine Press" },
+        { name: "Neutral-Grip Lat Pulldown", sets: "3 × 8–12", type: "compound", focus: true, img: "Close-Grip_Front_Lat_Pulldown", yt: "Neutral Grip Lat Pulldown" },
+        { name: "Seated Cable Row", sets: "3 × 8–12", type: "compound", focus: true, img: "Seated_Cable_Rows", yt: "Seated Cable Row" },
+        { name: "Shoulder Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Shoulder_Press", yt: "Shoulder Press" },
+        { name: "Reverse Pec Deck", sets: "2 × 12–20", type: "isolation", focus: false, img: "Reverse_Flyes", yt: "Reverse Pec Deck" },
+        { name: "Incline Dumbbell Curl", sets: "3 × 10–15", type: "isolation", focus: true, img: "Incline_Dumbbell_Curl", yt: "Incline Dumbbell Curl" },
+        { name: "Overhead Cable Triceps Extension", sets: "2 × 10–15", type: "isolation", focus: false, img: "Cable_Rope_Overhead_Triceps_Extension", yt: "Overhead Cable Triceps Extension" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+      ]
+    },
+    {
+      id: "c",
+      title: "Full Body C",
+      subtitle: "Bacak / Omuz Vurgulu",
+      exercises: [
+        { name: "Leg Press veya Hack Squat", sets: "4 × 8–12", type: "compound", focus: true, img: "Leg_Press", yt: "Leg Press" },
+        { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", yt: "Romanian Deadlift" },
+        { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", yt: "Machine Chest Press" },
+        { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", yt: "Chest Supported Row" },
+        { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", yt: "Lat Pulldown" },
+        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", yt: "Shoulder Press" },
+        { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", yt: "Lateral Raise" },
+        { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", yt: "Hammer Curl" },
+        { name: "Rope Pushdown", sets: "2 × 10–15", type: "isolation", focus: false, img: "Triceps_Pushdown_-_Rope_Attachment", yt: "Rope Pushdown" },
+        { name: "Calf Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Standing_Calf_Raises", yt: "Calf Raise" }
+      ]
+    }
+  ];
+
+  var TYPE_NOTE = {
+    compound: "Büyük hareket · Dinlenme 2–3 dk · 1–2 RIR",
+    isolation: "İzolasyon · Dinlenme 60–90 sn · 0–2 RIR"
+  };
+
+  var STORAGE_KEY = "fullbody3_progress_v1";
+
+  /* ============ Helpers ============ */
+  function slugify(str){
+    var map = {"ç":"c","Ç":"c","ğ":"g","Ğ":"g","ı":"i","İ":"i","ö":"o","Ö":"o","ş":"s","Ş":"s","ü":"u","Ü":"u"};
+    var out = "";
+    for (var i = 0; i < str.length; i++){
+      out += map[str[i]] || str[i];
+    }
+    return out.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-+|-+$)/g, "");
+  }
+
+  function loadProgress(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){
+      return {};
+    }
+  }
+
+  function saveProgress(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    }catch(e){ /* localStorage unavailable, continue without persistence */ }
+  }
+
+  var progress = loadProgress();
+
+  var YT_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/>' +
+    '</svg>';
+
+  var CHECK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#08130d" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+
+  var FALLBACK_ICON = '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M2 9h2v6H2zM4 10h2v4H4zm3-2h2v8H7zm8 0h2v8h-2zm3 2h2v4h-2zm2-1h2v6h-2zM9 11h6v2H9z"/>' +
+    '</svg>';
+
+  /* ============ Build exercise ids ============ */
+  PROGRAM.forEach(function(day){
+    day.exercises.forEach(function(ex, i){
+      ex.id = day.id + "-" + (i + 1) + "-" + slugify(ex.name);
+    });
+  });
+
+  /* ============ Render ============ */
+  var daysContainer = document.getElementById("days-container");
+
+  function cardHtml(day, ex){
+    var done = !!progress[ex.id];
+    var imgUrl = IMG_BASE + ex.img + "/0.jpg";
+    var ytUrl = YT_CHANNEL_SEARCH + encodeURIComponent(ex.yt) + "%20Unbroken%20Fitness%20Solutions";
+    return (
+      '<article class="card' + (done ? " is-done" : "") + '" id="card-' + ex.id + '" data-id="' + ex.id + '">' +
+        '<div class="card-media">' +
+          FALLBACK_ICON +
+          '<img src="' + imgUrl + '" alt="' + ex.name + ' hareketinin gösterimi" loading="lazy" ' +
+            'onerror="this.style.display=\'none\'">' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-top">' +
+            '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
+            '<span class="ex-sets">' + ex.sets + '</span>' +
+          '</div>' +
+          '<p class="ex-meta">' + TYPE_NOTE[ex.type] + '</p>' +
+          '<div class="card-actions">' +
+            '<div>' +
+              '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' için Unbroken Fitness Solutions kanalında video ara">' +
+                YT_ICON + '<span>Videoyu Ara</span>' +
+              '</a>' +
+              '<span class="yt-unverified">Kanalda ara · doğrulanmış eşleşme değil</span>' +
+            '</div>' +
+            '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
+              '<span class="done-dot">' + CHECK_ICON + '</span>' +
+              '<span class="done-label">' + (done ? "Tamamlandı" : "İşaretle") + '</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</article>'
+    );
+  }
+
+  function dayHtml(day){
+    var cards = day.exercises.map(function(ex){ return cardHtml(day, ex); }).join("");
+    return (
+      '<details class="day" id="day-' + day.id + '" open>' +
+        '<summary>' +
+          '<div class="day-title-group">' +
+            '<h2>' + day.title + '</h2>' +
+            '<span class="day-subtitle">' + day.subtitle + '</span>' +
+          '</div>' +
+          '<div class="day-meta">' +
+            '<span class="day-progress-text" id="day-progress-text-' + day.id + '">0/' + day.exercises.length + '</span>' +
+            '<div class="mini-progress"><div class="mini-progress-fill" id="day-progress-fill-' + day.id + '"></div></div>' +
+            '<button type="button" class="reset-day-btn" data-day="' + day.id + '" aria-label="' + day.title + ' gününü sıfırla">↺</button>' +
+            '<span class="chevron" aria-hidden="true">▾</span>' +
+          '</div>' +
+        '</summary>' +
+        '<div class="day-body">' +
+          '<div class="cards" id="cards-' + day.id + '">' + cards + '</div>' +
+        '</div>' +
+      '</details>'
+    );
+  }
+
+  daysContainer.innerHTML = PROGRAM.map(dayHtml).join("");
+
+  var infoTemplate = document.getElementById("info-template");
+  daysContainer.parentNode.insertBefore(infoTemplate.content.cloneNode(true), document.querySelector("footer.app-footer"));
+
+  /* ============ Progress updates ============ */
+  var overallCountEl = document.getElementById("overall-count");
+  var overallFillEl = document.getElementById("overall-fill");
+
+  function updateProgressUI(){
+    var totalAll = 0, doneAll = 0;
+    PROGRAM.forEach(function(day){
+      var total = day.exercises.length;
+      var done = day.exercises.reduce(function(acc, ex){ return acc + (progress[ex.id] ? 1 : 0); }, 0);
+      totalAll += total;
+      doneAll += done;
+
+      var pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("day-progress-text-" + day.id).textContent = done + "/" + total;
+      document.getElementById("day-progress-fill-" + day.id).style.width = pct + "%";
+    });
+
+    var overallPct = totalAll ? Math.round((doneAll / totalAll) * 100) : 0;
+    overallCountEl.textContent = doneAll + " / " + totalAll + " tamamlandı";
+    overallFillEl.style.width = overallPct + "%";
+  }
+
+  function setExerciseDone(id, done){
+    progress[id] = done;
+    saveProgress();
+
+    var card = document.getElementById("card-" + id);
+    var btn = card.querySelector(".done-btn");
+    var label = btn.querySelector(".done-label");
+
+    card.classList.toggle("is-done", done);
+    btn.setAttribute("aria-checked", String(done));
+    label.textContent = done ? "Tamamlandı" : "İşaretle";
+
+    updateProgressUI();
+  }
+
+  daysContainer.addEventListener("click", function(e){
+    var doneBtn = e.target.closest(".done-btn");
+    if (doneBtn){
+      var id = doneBtn.getAttribute("data-id");
+      setExerciseDone(id, doneBtn.getAttribute("aria-checked") !== "true");
+      return;
+    }
+
+    var resetDayBtn = e.target.closest(".reset-day-btn");
+    if (resetDayBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      var dayId = resetDayBtn.getAttribute("data-day");
+      var day = PROGRAM.filter(function(d){ return d.id === dayId; })[0];
+      askConfirm(
+        day.title + " gününü sıfırla",
+        "Bu güne ait " + day.exercises.length + " egzersizin tamamlanma durumu sıfırlanacak. Bu işlem geri alınamaz.",
+        function(){
+          day.exercises.forEach(function(ex){ setExerciseDone(ex.id, false); });
+        }
+      );
+    }
+  });
+
+  /* ============ Reset all ============ */
+  document.getElementById("reset-all-btn").addEventListener("click", function(){
+    askConfirm(
+      "Tüm ilerlemeyi sıfırla",
+      "Programdaki tüm günlerin tamamlanma durumu sıfırlanacak. Bu işlem geri alınamaz.",
+      function(){
+        PROGRAM.forEach(function(day){
+          day.exercises.forEach(function(ex){ setExerciseDone(ex.id, false); });
+        });
+      }
+    );
+  });
+
+  /* ============ Confirm dialog ============ */
+  var overlay = document.getElementById("confirm-overlay");
+  var confirmTitle = document.getElementById("confirm-title");
+  var confirmDesc = document.getElementById("confirm-desc");
+  var confirmOk = document.getElementById("confirm-ok");
+  var confirmCancel = document.getElementById("confirm-cancel");
+  var lastFocused = null;
+
+  function askConfirm(title, desc, onConfirm){
+    lastFocused = document.activeElement;
+    confirmTitle.textContent = title;
+    confirmDesc.textContent = desc;
+    overlay.hidden = false;
+    confirmCancel.focus();
+
+    function cleanup(){
+      overlay.hidden = true;
+      confirmOk.removeEventListener("click", onOk);
+      confirmCancel.removeEventListener("click", onCancel);
+      document.removeEventListener("keydown", onKeydown);
+      if (lastFocused) lastFocused.focus();
+    }
+    function onOk(){ cleanup(); onConfirm(); }
+    function onCancel(){ cleanup(); }
+    function onKeydown(e){ if (e.key === "Escape") onCancel(); }
+
+    confirmOk.addEventListener("click", onOk);
+    confirmCancel.addEventListener("click", onCancel);
+    document.addEventListener("keydown", onKeydown);
+  }
+
+  overlay.addEventListener("click", function(e){
+    if (e.target === overlay) confirmCancel.click();
+  });
+
+  /* ============ Init ============ */
+  updateProgressUI();
+})();
+</script>
+</body>
+</html>
