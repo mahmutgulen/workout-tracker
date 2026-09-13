@@ -223,21 +223,6 @@
     width:0%;
     transition: width .25s ease;
   }
-  .reset-day-btn{
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size: 1.25rem;
-    flex-shrink:0;
-    transition: transform var(--t-med) var(--ease-spring), background-color var(--t-fast) var(--ease);
-  }
-  .reset-day-btn:active{ transition:none; background: var(--surface-3); transform: translateY(1px) scale(.9); }
   .chevron{
     color: var(--text-dim);
     background: var(--surface-2);
@@ -374,6 +359,50 @@
     color: var(--accent);
     letter-spacing: .02em;
     line-height:1.2;
+  }
+
+  /* ---------- Personal max-weight tracker: compact, quieter than title/sets ---------- */
+  .ex-weight{
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .ex-weight-label{
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    white-space:nowrap;
+  }
+  .ex-weight-input{
+    width: 56px;
+    min-height: 34px;
+    padding: 2px 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    font-weight: 600;
+    text-align:center;
+    transition: border-color var(--t-fast) var(--ease);
+  }
+  .ex-weight-input::placeholder{ color: var(--text-faint); }
+  .ex-weight-input::-webkit-outer-spin-button,
+  .ex-weight-input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .ex-weight-input{ -moz-appearance:textfield; }
+  .ex-weight-input:focus{
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  .ex-weight-input.is-saved{ border-color: var(--good); }
+  .ex-weight-unit{
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-faint);
   }
 
   /* ---------- Exercise info: always-visible panel directly under the set/rep line ----------
@@ -730,7 +759,7 @@
     *{ transition: none !important; }
     /* Kill press-translate/squish; the inner-shadow state change alone carries the press. */
     .done-btn:active, .yt-btn:active, .btn:active,
-    .reset-day-btn:active, .final-reset-btn:active, .card-media:active{
+    .final-reset-btn:active, .card-media:active{
       transform: none !important;
     }
   }
@@ -953,6 +982,11 @@
      from silently re-attaching to a different exercise that now sits at the same index. */
   var STORAGE_KEY = "fullbody3_progress_v2";
   var DAY_STATE_KEY = "fullbody3_day_open_v1";
+  /* Separate namespace from completion state: this tracks personal max-weight
+     records, not workout completion, so it must never be touched by day reset
+     or "Tümünü Temizle". Keyed by normalized exercise name (see weightKeyFor),
+     not by day/position, so the same movement repeated across days shares one value. */
+  var WEIGHT_STORAGE_KEY = "fullbody3_max_weights_v1";
 
   /* ============ Helpers ============ */
   function slugify(str){
@@ -998,6 +1032,27 @@
 
   var dayOpenState = loadDayState();
 
+  function weightKeyFor(name){
+    return slugify(name);
+  }
+
+  function loadMaxWeights(){
+    try{
+      var raw = localStorage.getItem(WEIGHT_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){
+      return {};
+    }
+  }
+
+  function saveMaxWeights(){
+    try{
+      localStorage.setItem(WEIGHT_STORAGE_KEY, JSON.stringify(maxWeights));
+    }catch(e){ /* localStorage unavailable, continue without persistence */ }
+  }
+
+  var maxWeights = loadMaxWeights();
+
   var YT_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' +
     '<path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/>' +
     '</svg>';
@@ -1032,6 +1087,9 @@
     var ytUrl = "https://www.youtube.com/watch?v=" + ex.ytId;
     var setParts = ex.sets.split(" × ");
     var setsProminent = setParts[0] + " SET × " + setParts[1] + " TEKRAR";
+    var weightKey = weightKeyFor(ex.name);
+    var weightValue = (maxWeights[weightKey] !== undefined) ? maxWeights[weightKey] : "";
+    var weightInputId = "weight-" + ex.id;
     return (
       '<article class="card' + (done ? " is-done" : "") + '" id="card-' + ex.id + '" data-id="' + ex.id + '">' +
         '<div class="card-top">' +
@@ -1044,6 +1102,12 @@
           '<div class="card-heading">' +
             '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
             '<div class="ex-sets-prominent">' + setsProminent + '</div>' +
+            '<div class="ex-weight">' +
+              '<label class="ex-weight-label" for="' + weightInputId + '">Maks. Ağırlık</label>' +
+              '<input type="number" inputmode="decimal" min="0" step="0.5" class="ex-weight-input" ' +
+                'id="' + weightInputId + '" data-weight-key="' + weightKey + '" value="' + weightValue + '" placeholder="—">' +
+              '<span class="ex-weight-unit">kg</span>' +
+            '</div>' +
             '<div class="ex-info">' +
               '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
               '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
@@ -1080,7 +1144,6 @@
           '<div class="day-meta">' +
             '<span class="day-progress-text" id="day-progress-text-' + day.id + '">0/' + day.exercises.length + '</span>' +
             '<div class="mini-progress"><div class="mini-progress-fill" id="day-progress-fill-' + day.id + '"></div></div>' +
-            '<button type="button" class="reset-day-btn" data-day="' + day.id + '" aria-label="' + day.title + ' gününü sıfırla">↺</button>' +
             '<span class="chevron" aria-hidden="true">' + CHEVRON_ICON + '</span>' +
           '</div>' +
         '</summary>' +
@@ -1154,21 +1217,49 @@
       openImageModal(mediaBtn.getAttribute("data-img"), mediaBtn.getAttribute("data-name"));
       return;
     }
+  });
 
-    var resetDayBtn = e.target.closest(".reset-day-btn");
-    if (resetDayBtn){
-      e.preventDefault();
-      e.stopPropagation();
-      var dayId = resetDayBtn.getAttribute("data-day");
-      var day = PROGRAM.filter(function(d){ return d.id === dayId; })[0];
-      askConfirm(
-        day.title + " gününü sıfırla",
-        "Bu güne ait " + day.exercises.length + " egzersizin tamamlanma durumu sıfırlanacak. Bu işlem geri alınamaz.",
-        function(){
-          day.exercises.forEach(function(ex){ setExerciseDone(ex.id, false); });
-        }
-      );
+  /* ============ Max-weight tracker ============
+     Stored separately from completion state (WEIGHT_STORAGE_KEY), keyed by
+     normalized exercise name so the same movement on different days shares
+     one value while different variations (e.g. Bench Press vs Incline
+     Dumbbell Press) never collide. Not touched by any reset control. */
+  function sanitizeWeightInput(input){
+    if (input.value.indexOf("-") !== -1){
+      input.value = input.value.replace(/-/g, "");
     }
+  }
+
+  function commitWeight(input){
+    var key = input.getAttribute("data-weight-key");
+    var raw = input.value.trim();
+    var num = parseFloat(raw);
+
+    if (raw === "" || isNaN(num) || num < 0){
+      delete maxWeights[key];
+    } else {
+      maxWeights[key] = num;
+    }
+    saveMaxWeights();
+
+    var display = (maxWeights[key] !== undefined) ? String(maxWeights[key]) : "";
+    document.querySelectorAll('.ex-weight-input[data-weight-key="' + key + '"]').forEach(function(el){
+      if (el !== document.activeElement) el.value = display;
+    });
+
+    input.classList.add("is-saved");
+    clearTimeout(input._weightSavedTimer);
+    input._weightSavedTimer = setTimeout(function(){ input.classList.remove("is-saved"); }, 700);
+  }
+
+  daysContainer.addEventListener("input", function(e){
+    var input = e.target.closest(".ex-weight-input");
+    if (input) sanitizeWeightInput(input);
+  });
+
+  daysContainer.addEventListener("change", function(e){
+    var input = e.target.closest(".ex-weight-input");
+    if (input) commitWeight(input);
   });
 
   /* ============ Reset all ============ */
