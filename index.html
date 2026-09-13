@@ -376,70 +376,27 @@
     line-height:1.2;
   }
 
-  /* ---------- Collapsible exercise info: full-width, quiet secondary control ----------
+  /* ---------- Exercise info: always-visible panel directly under the set/rep line ----------
      Nested one level inside the card's own --surface, so it takes the next
-     step up the ramp (--surface-2) to read as a distinct inner block. */
-  .ex-info{ }
-  .ex-info > summary{
-    list-style:none;
-    cursor:pointer;
-    display:flex;
-    width:100%;
-    align-items:center;
-    justify-content:space-between;
-    gap:6px;
-    min-height: 40px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
+     step up the ramp (--surface-2) to read as a distinct inner block. No
+     expand/collapse - the content is simply part of the card's layout. */
+  .ex-info{
+    margin-top: 4px;
+    padding: 0;
+    background: transparent;
+    border: 0px solid var(--border);
     border-radius: 12px;
-    padding: 8px 12px;
-    font-family: var(--font-ui);
-    font-size: .76rem;
-    font-weight: 600;
-    color: var(--text-dim);
-    -webkit-tap-highlight-color: transparent;
-    transition: background-color var(--t-fast) var(--ease);
-  }
-  .ex-info > summary:active{ background: var(--surface-3); }
-  .ex-info > summary::-webkit-details-marker{ display:none; }
-  .ex-info[open] > summary{
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-color: transparent;
-  }
-  .ex-info-chevron{
-    display:inline-flex;
-    flex-shrink:0;
-    color: var(--text-faint);
-  }
-  .ex-info-chevron svg{ width:14px; height:14px; }
-  /* Instant swap between closed/open, not an animated rotation. */
-  .ex-info[open] .ex-info-chevron{ transform: rotate(180deg); }
-  .ex-info-body{
-    padding: 10px 12px 12px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 12px 12px;
     display:flex;
     flex-direction:column;
     gap: 4px;
   }
-  .ex-info-body p{
+  .ex-info p{
     font-size: .78rem;
     color: var(--text-dim);
     line-height:1.4;
   }
-  .ex-info-body strong{
+  .ex-info strong{
     color: var(--text);
-  }
-  .ex-info-meta{
-    margin-top: 2px;
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: .7rem;
-    color: var(--text-faint);
   }
 
   /* ---------- Action row: right-aligned, compact YouTube (secondary) + Completion (primary) ----------
@@ -1087,17 +1044,14 @@
           '<div class="card-heading">' +
             '<h3 class="ex-name">' + ex.name + (ex.focus ? ' <span class="focus-badge">ODAK</span>' : '') + '</h3>' +
             '<div class="ex-sets-prominent">' + setsProminent + '</div>' +
+            '<div class="ex-info">' +
+              '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
+              '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
+              '<p><strong>İpucu:</strong> ' + ex.info.cue + '</p>' +
+              '<p><strong>Dinlenme:</strong> ' + TYPE_NOTE[ex.type].replace("Dinlenme: ", "") + '</p>' +
+            '</div>' +
           '</div>' +
         '</div>' +
-        '<details class="ex-info">' +
-          '<summary><span>Hareket Bilgisi</span><span class="ex-info-chevron">' + CHEVRON_ICON + '</span></summary>' +
-          '<div class="ex-info-body">' +
-            '<p><strong>Ana hedef:</strong> ' + ex.info.target + '</p>' +
-            '<p><strong>İkincil:</strong> ' + ex.info.secondary + '</p>' +
-            '<p><strong>İpucu:</strong> ' + ex.info.cue + '</p>' +
-            '<p class="ex-info-meta">' + TYPE_NOTE[ex.type] + '</p>' +
-          '</div>' +
-        '</details>' +
         '<div class="card-actions">' +
           '<div class="action-pair">' +
             '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
