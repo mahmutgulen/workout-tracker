@@ -464,19 +464,17 @@
     color: var(--text);
   }
 
-  /* ---------- Action row: right-aligned, compact YouTube (secondary) + Completion (primary) ----------
-     .action-pair uses an inline CSS grid with two equal (1fr) columns sized to fit-content.
-     This makes both buttons come out exactly the same width regardless of font metrics/device -
-     the wider label (Videoyu İzle) sets the shared column width and the shorter one (Tamamla/BASILDI)
-     stretches to match it, instead of relying on a guessed fixed pixel width. */
+  /* ---------- Action row: full-width YouTube (secondary) + Completion (primary), 50/50 ----------
+     .action-pair spans the full card width with two equal 1fr columns, so
+     each button is exactly half the row regardless of label length. */
   .card-actions{
     display:flex;
-    justify-content:flex-end;
   }
   .action-pair{
-    display:inline-grid;
+    display:grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    width:100%;
   }
   /* Secondary / Neutral variant: quiet surface-2 chip, brand-red YouTube icon kept as-is. */
   .yt-btn{
