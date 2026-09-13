@@ -225,7 +225,7 @@
   .card-top{
     display:flex;
     gap: 12px;
-    align-items:center;
+    align-items:flex-start;
   }
   .card-media{
     position:relative;
@@ -277,7 +277,8 @@
     min-width:0;
     display:flex;
     flex-direction:column;
-    gap: 5px;
+    gap: 3px;
+    padding-top: 1px;
   }
   .ex-name{
     font-size: 1rem;
@@ -299,7 +300,7 @@
     white-space:nowrap;
   }
   .ex-sets-prominent{
-    font-size: 1rem;
+    font-size: .88rem;
     font-weight: 800;
     color: var(--accent);
     letter-spacing: .01em;
@@ -366,19 +367,25 @@
     color: var(--text-faint);
   }
 
-  /* ---------- Action row: right-aligned, compact YouTube (secondary) + Completion (primary) ---------- */
+  /* ---------- Action row: right-aligned, compact YouTube (secondary) + Completion (primary) ----------
+     .action-pair uses an inline CSS grid with two equal (1fr) columns sized to fit-content.
+     This makes both buttons come out exactly the same width regardless of font metrics/device -
+     the wider label (Videoyu İzle) sets the shared column width and the shorter one (Tamamla/BASILDI)
+     stretches to match it, instead of relying on a guessed fixed pixel width. */
   .card-actions{
     display:flex;
     justify-content:flex-end;
-    align-items:center;
+  }
+  .action-pair{
+    display:inline-grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    flex-wrap: wrap;
   }
   .yt-btn{
-    flex: 0 0 auto;
-    width:auto;
+    width:100%;
     display:inline-flex;
     align-items:center;
+    justify-content:center;
     gap: 6px;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -389,30 +396,31 @@
     border-radius: 999px;
     text-decoration:none;
     min-height: 44px;
+    white-space:nowrap;
   }
   .yt-btn svg{ color: var(--yt-red); flex-shrink:0; }
   .yt-btn:active{ background: var(--border); }
   .done-btn{
-    flex: 0 0 auto;
-    width:auto;
+    width:100%;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap: 7px;
+    gap: 6px;
     background: var(--accent);
-    border: 2px solid var(--accent);
+    border: 1px solid var(--border);
     color: #1a0a05;
-    font-size: .86rem;
+    font-size: .78rem;
     font-weight: 800;
     letter-spacing: .02em;
     padding-inline: 16px;
     border-radius: 999px;
-    min-height: 46px;
+    min-height: 44px;
+    white-space:nowrap;
   }
   .done-btn:active{ opacity:.85; }
   .done-dot{
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 999px;
     border: 2px solid #1a0a05;
     flex-shrink:0;
@@ -421,7 +429,7 @@
     justify-content:center;
     background: transparent;
   }
-  .done-dot svg{ opacity:0; width:13px; height:13px; }
+  .done-dot svg{ opacity:0; width:10px; height:10px; }
   .done-btn[aria-checked="true"]{
     background: var(--good);
     border-color: var(--good);
@@ -955,13 +963,15 @@
           '</div>' +
         '</details>' +
         '<div class="card-actions">' +
-          '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
-            YT_ICON + '<span>Videoyu İzle</span>' +
-          '</a>' +
-          '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
-            '<span class="done-dot">' + CHECK_ICON + '</span>' +
-            '<span class="done-label">' + (done ? "BASILDI" : "Tamamla") + '</span>' +
-          '</button>' +
+          '<div class="action-pair">' +
+            '<a class="yt-btn" href="' + ytUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + ex.name + ' video gösterimini izle">' +
+              YT_ICON + '<span>Videoyu İzle</span>' +
+            '</a>' +
+            '<button type="button" class="done-btn" role="switch" aria-checked="' + done + '" data-id="' + ex.id + '" aria-label="' + ex.name + ' tamamlandı olarak işaretle">' +
+              '<span class="done-dot">' + CHECK_ICON + '</span>' +
+              '<span class="done-label">' + (done ? "BASILDI" : "Tamamla") + '</span>' +
+            '</button>' +
+          '</div>' +
         '</div>' +
       '</article>'
     );
