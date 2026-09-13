@@ -5,32 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>3 Günlük Full Body Programı</title>
 <meta name="description" content="Mobil antrenman takip uygulaması: 3 günlük vurgulu full body programı.">
-<meta name="theme-color" content="#0b0b0d">
+<meta name="theme-color" content="#08090C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Full Body 3">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b0b0d'/%3E%3Cpath fill='%23ff5a36' d='M2 9h2v6H2zM4 10h2v4H4zm3-2h2v8H7zm8 0h2v8h-2zm3 2h2v4h-2zm2-1h2v6h-2zM9 11h6v2H9z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%2308090C'/%3E%3Cpath fill='%2321B8DC' d='M2 9h2v6H2zM4 10h2v4H4zm3-2h2v8H7zm8 0h2v8h-2zm3 2h2v4h-2zm2-1h2v6h-2zM9 11h6v2H9z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  /* ---------- Tokens ---------- */
+  /* ---------- Tokens (liquid-glass visual language) ---------- */
   :root{
     color-scheme: dark;
-    --bg: #0b0b0d;
-    --surface: #17181c;
-    --surface-2: #202226;
-    --border: #2b2d33;
-    --text: #f2f2f4;
-    --text-dim: #9a9ca6;
-    --text-faint: #6c6e77;
-    --accent: #ff5a36;
-    --accent-dim: rgba(255,90,54,.14);
-    --good: #35c47a;
-    --good-dim: rgba(53,196,122,.14);
-    --yt-red: #ff4d4d;
-    --yt-red-dim: rgba(255,45,45,.12);
-    --radius-lg: 18px;
-    --radius-md: 14px;
-    --radius-sm: 10px;
+    /* surfaces */
+    --bg: #08090C;                  /* bg-base */
+    --bg-scrim: rgba(8,9,12,.80);
+    --surface: #15171C;             /* surface-1: cards, panels */
+    --surface-2: #282C34;           /* surface-2: nested fills, meter tracks */
+    --surface-3: #1F232B;           /* surface-3: pressed/hover-on-nested */
+    --border: rgba(157,163,176,.16);/* quiet card divider, not full glass-border */
+    --glass-fill: rgba(31,35,43,.80);
+    --glass-border: rgba(77,81,89,.64);
+    --glass-blur: 20px;
+    --edge-highlight: rgba(255,255,255,.16);
+    --edge-highlight-soft: rgba(255,255,255,.10);
+    --hover-overlay: rgba(255,255,255,.04);
+    /* neutrals */
+    --text: #E0E5EB;                /* n-primary */
+    --text-dim: #9DA3B0;            /* n-secondary */
+    --text-faint: #5C6069;          /* n-placeholder tone, used for quiet text */
+    /* prime accent - aqua (replaces the old orange) */
+    --accent: #21B8DC;
+    --accent-deep: #0E7E9B;
+    --accent-dim: rgba(33,184,220,.14);
+    --accent-glow: 0 0 12px rgba(33,184,220,.28);
+    --grad-primary: linear-gradient(180deg, #4393F7 0%, #21B8DC 52%, #17A9CE 100%);
+    /* success */
+    --good: #22C55E;
+    --good-dim: rgba(34,197,94,.12);
+    /* YouTube brand icon keeps its own recognizable red (not a semantic danger use) */
+    --yt-red: #FF7276;
+    --yt-red-dim: rgba(255,114,118,.12);
+    /* destructive (confirm/reset only) */
+    --danger-deep: #D93A3F;
+    /* label ink used on light/mid accent fills (primary + success buttons) */
+    --ink: #08090C;
+    /* radius */
+    --radius-lg: 24px;
+    --radius-md: 20px;
+    --radius-sm: 16px;
+    /* type */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-ui: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    /* motion */
+    --t-fast: 120ms; --t-med: 200ms;
+    --ease: cubic-bezier(.2,.7,.3,1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --safe-top: env(safe-area-inset-top, 0px);
     --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
@@ -40,7 +72,7 @@
   body{
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-ui);
     -webkit-font-smoothing: antialiased;
     line-height: 1.35;
     overflow-x: hidden;
@@ -51,6 +83,13 @@
   button{ font-family:inherit; }
   a{ color: inherit; }
 
+  ::selection{ background: var(--accent-dim); color: var(--text); }
+  *{ scrollbar-width: thin; scrollbar-color: var(--surface-2) transparent; }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background: transparent; }
+  ::-webkit-scrollbar-thumb{ background: var(--surface-2); border-radius:999px; }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--glass-border); }
+
   .visually-hidden{
     position:absolute; width:1px; height:1px; margin:-1px; padding:0;
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
@@ -59,16 +98,29 @@
   :focus-visible{
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+    box-shadow: var(--accent-glow);
   }
 
-  /* ---------- Header ---------- */
+  /* Press physics: instant press-in, spring release on the way back out. */
+  .pressable{
+    transition: transform var(--t-med) var(--ease-spring), box-shadow var(--t-fast) var(--ease);
+  }
+  .pressable:active{
+    transition: none;
+    transform: translateY(1px) scale(.985);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.32);
+  }
+
+  /* ---------- Header (glass: this is navigation chrome, not content) ---------- */
   .app-header{
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(11,11,13,.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
+    background: var(--glass-fill);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--edge-highlight);
     padding: calc(12px + var(--safe-top)) 16px 12px;
   }
   .header-top{
@@ -78,12 +130,13 @@
     gap:10px;
   }
   .app-title{
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
     letter-spacing: -0.01em;
   }
   .app-subtitle{
-    margin-top: 2px;
+    margin-top: 3px;
     font-size: .8rem;
     color: var(--text-dim);
   }
@@ -96,7 +149,7 @@
   }
   .progress-fill{
     height:100%;
-    background: linear-gradient(90deg, var(--accent), #ff8a5c);
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent));
     border-radius: 999px;
     width:0%;
     transition: width .25s ease;
@@ -114,6 +167,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--surface);
+    box-shadow: inset 0 1px 0 var(--edge-highlight-soft);
     overflow: hidden;
   }
   .day > summary{
@@ -126,12 +180,14 @@
     justify-content:space-between;
     gap: 10px;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--t-fast) var(--ease);
   }
-  .day > summary:active{ background: var(--surface-2); }
+  .day > summary:active{ background: var(--surface-3); }
   .day > summary::-webkit-details-marker{ display:none; }
   .day-title-group h2{
-    font-size: 1.08rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
   }
   .day-subtitle{
     display:block;
@@ -146,8 +202,10 @@
     flex-shrink:0;
   }
   .day-progress-text{
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
     font-size: .8rem;
-    font-weight:800;
+    font-weight:600;
     color: var(--text-dim);
     white-space:nowrap;
   }
@@ -177,8 +235,9 @@
     justify-content:center;
     font-size: 1.25rem;
     flex-shrink:0;
+    transition: transform var(--t-med) var(--ease-spring), background-color var(--t-fast) var(--ease);
   }
-  .reset-day-btn:active{ background: var(--border); }
+  .reset-day-btn:active{ transition:none; background: var(--surface-3); transform: translateY(1px) scale(.9); }
   .chevron{
     color: var(--text-dim);
     background: var(--surface-2);
@@ -189,10 +248,10 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    transition: transform .2s ease;
     flex-shrink:0;
   }
   .chevron svg{ width:16px; height:16px; }
+  /* Disclosure chevron: an instant swap between states, not an animated rotation. */
   .day[open] .chevron{ transform: rotate(180deg); }
 
   .day-body{
@@ -205,20 +264,24 @@
     gap: 10px;
   }
 
-  /* ---------- Exercise card ---------- */
+  /* ---------- Exercise card ----------
+     Law: glass is the navigation layer, never the content layer. Cards are
+     scrollable content, so they stay a flat --surface (surface-1) with a
+     quiet 10%-opacity inset top highlight, never a blurred glass panel. */
   .card{
     display:flex;
     flex-direction:column;
     gap: 10px;
-    background: var(--surface-2);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 12px;
+    box-shadow: inset 0 1px 0 var(--edge-highlight-soft);
     transition: background-color .2s ease, border-color .2s ease;
   }
   .card.is-done{
-    background: rgba(53,196,122,.07);
-    border-color: rgba(53,196,122,.38);
+    background: rgba(34,197,94,.07);
+    border-color: rgba(34,197,94,.38);
   }
 
   /* Top region: image + name/sets grouped together */
@@ -247,8 +310,9 @@
     -webkit-appearance: none;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    transition: transform var(--t-med) var(--ease-spring);
   }
-  .card-media:active{ opacity:.85; }
+  .card-media:active{ transition:none; transform: scale(.97); }
   .card-media img{
     position:absolute;
     inset:0;
@@ -281,8 +345,9 @@
     padding-top: 1px;
   }
   .ex-name{
+    font-family: var(--font-ui);
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height:1.28;
     overflow-wrap: anywhere;
   }
@@ -292,22 +357,28 @@
     vertical-align:middle;
     background: var(--accent-dim);
     color: var(--accent);
+    font-family: var(--font-mono);
     font-size: .6rem;
-    font-weight: 800;
-    letter-spacing: .03em;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
     padding: 2px 6px;
     border-radius: 6px;
     white-space:nowrap;
   }
   .ex-sets-prominent{
-    font-size: .88rem;
-    font-weight: 800;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: .84rem;
+    font-weight: 600;
     color: var(--accent);
-    letter-spacing: .01em;
+    letter-spacing: .02em;
     line-height:1.2;
   }
 
-  /* ---------- Collapsible exercise info: full-width, quiet secondary control ---------- */
+  /* ---------- Collapsible exercise info: full-width, quiet secondary control ----------
+     Nested one level inside the card's own --surface, so it takes the next
+     step up the ramp (--surface-2) to read as a distinct inner block. */
   .ex-info{ }
   .ex-info > summary{
     list-style:none;
@@ -318,15 +389,18 @@
     justify-content:space-between;
     gap:6px;
     min-height: 40px;
-    background: var(--surface);
+    background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 8px 12px;
+    font-family: var(--font-ui);
     font-size: .76rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-dim);
     -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--t-fast) var(--ease);
   }
+  .ex-info > summary:active{ background: var(--surface-3); }
   .ex-info > summary::-webkit-details-marker{ display:none; }
   .ex-info[open] > summary{
     border-bottom-left-radius: 0;
@@ -337,13 +411,13 @@
     display:inline-flex;
     flex-shrink:0;
     color: var(--text-faint);
-    transition: transform .15s ease;
   }
   .ex-info-chevron svg{ width:14px; height:14px; }
+  /* Instant swap between closed/open, not an animated rotation. */
   .ex-info[open] .ex-info-chevron{ transform: rotate(180deg); }
   .ex-info-body{
     padding: 10px 12px 12px;
-    background: var(--surface);
+    background: var(--surface-2);
     border: 1px solid var(--border);
     border-top: none;
     border-radius: 0 0 12px 12px;
@@ -363,7 +437,8 @@
     margin-top: 2px;
     padding-top: 6px;
     border-top: 1px solid var(--border);
-    font-size: .72rem;
+    font-family: var(--font-mono);
+    font-size: .7rem;
     color: var(--text-faint);
   }
 
@@ -381,48 +456,59 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
+  /* Secondary / Neutral variant: quiet surface-2 chip, brand-red YouTube icon kept as-is. */
   .yt-btn{
     width:100%;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap: 6px;
-    background: var(--surface);
+    background: var(--surface-2);
     border: 1px solid var(--border);
     color: var(--text-dim);
+    font-family: var(--font-ui);
     font-size: .78rem;
-    font-weight: 700;
+    font-weight: 600;
     padding-inline: 16px;
     border-radius: 999px;
     text-decoration:none;
     min-height: 44px;
     white-space:nowrap;
+    transition: transform var(--t-med) var(--ease-spring), background-color var(--t-fast) var(--ease);
   }
   .yt-btn svg{ color: var(--yt-red); flex-shrink:0; }
-  .yt-btn:active{ background: var(--border); }
+  .yt-btn:active{ transition:none; background: var(--surface-3); transform: translateY(1px) scale(.985); }
+  /* Primary variant: the gloss --grad-primary fill + edge highlight is the primary's alone. */
   .done-btn{
     width:100%;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap: 6px;
-    background: var(--accent);
-    border: 1px solid var(--border);
-    color: #1a0a05;
+    background: var(--grad-primary);
+    border: 1px solid transparent;
+    box-shadow: inset 0 1px 0 var(--edge-highlight);
+    color: var(--ink);
+    font-family: var(--font-ui);
     font-size: .78rem;
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: .02em;
     padding-inline: 16px;
     border-radius: 999px;
     min-height: 44px;
     white-space:nowrap;
+    transition: transform var(--t-med) var(--ease-spring);
   }
-  .done-btn:active{ opacity:.85; }
+  .done-btn:active{
+    transition:none;
+    transform: translateY(1px) scale(.985);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.32);
+  }
   .done-dot{
     width: 16px;
     height: 16px;
     border-radius: 999px;
-    border: 2px solid #1a0a05;
+    border: 2px solid var(--ink);
     flex-shrink:0;
     display:flex;
     align-items:center;
@@ -432,12 +518,12 @@
   .done-dot svg{ opacity:0; width:10px; height:10px; }
   .done-btn[aria-checked="true"]{
     background: var(--good);
-    border-color: var(--good);
-    color: #06170e;
+    box-shadow: inset 0 1px 0 var(--edge-highlight);
+    color: var(--ink);
   }
   .done-btn[aria-checked="true"] .done-dot{
-    background: #06170e;
-    border-color: #06170e;
+    background: var(--ink);
+    border-color: var(--ink);
   }
   .done-btn[aria-checked="true"] .done-dot svg path{ fill: var(--good); }
   .done-btn[aria-checked="true"] .done-dot svg{ opacity:1; }
@@ -452,6 +538,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--surface);
+    box-shadow: inset 0 1px 0 var(--edge-highlight-soft);
     overflow:hidden;
   }
   .info > summary{
@@ -461,8 +548,9 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    font-weight: 800;
-    font-size: .92rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .96rem;
   }
   .info > summary::-webkit-details-marker{ display:none; }
   .info[open] .chevron{ transform: rotate(180deg); }
@@ -474,9 +562,12 @@
     gap:14px;
   }
   .info-block h3{
-    font-size: .82rem;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
     color: var(--accent);
-    font-weight: 800;
+    font-weight: 600;
     margin-bottom: 6px;
   }
   .info-block ul{
@@ -504,7 +595,8 @@
     display:block;
     margin-top:6px;
     color: var(--text-dim);
-    font-family: inherit;
+    font-family: var(--font-mono);
+    font-size: .78rem;
   }
 
   /* ---------- Final overall progress (bottom) ---------- */
@@ -514,15 +606,19 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
+    box-shadow: inset 0 1px 0 var(--edge-highlight-soft);
     text-align:center;
   }
   .final-progress-title{
-    font-size: 1rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
   }
   .final-progress-count{
     margin-top: 4px;
-    font-size: .88rem;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: .84rem;
     color: var(--text-dim);
   }
   .final-progress-track{
@@ -537,17 +633,19 @@
     color: var(--text);
     border-radius: 999px;
     padding: 14px;
+    font-family: var(--font-ui);
     font-size: .92rem;
-    font-weight: 800;
+    font-weight: 600;
     min-height: 50px;
+    transition: transform var(--t-med) var(--ease-spring), background-color var(--t-fast) var(--ease);
   }
-  .final-reset-btn:active{ background: var(--border); }
+  .final-reset-btn:active{ transition:none; background: var(--surface-3); transform: translateY(1px) scale(.99); }
 
   /* ---------- Confirm overlay ---------- */
   .overlay{
     position: fixed;
     inset:0;
-    background: rgba(0,0,0,.6);
+    background: var(--bg-scrim);
     display:flex;
     align-items:flex-end;
     justify-content:center;
@@ -556,17 +654,22 @@
     padding-bottom: calc(16px + var(--safe-bottom));
   }
   .overlay[hidden]{ display:none; }
+  /* Modal: glass recipe + true elevation shadow - this is a floating layer, not content. */
   .confirm-box{
     width:100%;
     max-width: 420px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: var(--glass-fill);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 1px 0 var(--edge-highlight), 0 16px 48px rgba(0,0,0,.56);
     padding: 18px;
   }
   .confirm-box h3{
-    font-size: 1rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
     margin-bottom: 6px;
   }
   .confirm-box p{
@@ -582,20 +685,24 @@
     flex:1;
     padding: 12px;
     border-radius: 999px;
+    font-family: var(--font-ui);
     font-size: .88rem;
-    font-weight: 700;
+    font-weight: 600;
     border: 1px solid var(--border);
     min-height: 44px;
+    transition: transform var(--t-med) var(--ease-spring), background-color var(--t-fast) var(--ease);
   }
+  .btn:active{ transition:none; transform: translateY(1px) scale(.985); }
   .btn-secondary{
     background: var(--surface-2);
     color: var(--text);
   }
-  .btn-secondary:active{ background: var(--border); }
+  .btn-secondary:active{ background: var(--surface-3); }
+  /* Danger: reserved for exactly this - a destructive action behind a confirm step. */
   .btn-danger{
-    background: var(--accent);
-    color: #1a0a05;
-    border-color: var(--accent);
+    background: var(--danger-deep);
+    color: #fff;
+    border-color: var(--danger-deep);
   }
   .btn-danger:active{ opacity:.85; }
 
@@ -604,7 +711,7 @@
     position: fixed;
     inset: 0;
     z-index: 70;
-    background: rgba(4,4,5,.94);
+    background: rgba(8,9,12,.94);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -664,6 +771,11 @@
 
   @media (prefers-reduced-motion: reduce){
     *{ transition: none !important; }
+    /* Kill press-translate/squish; the inner-shadow state change alone carries the press. */
+    .done-btn:active, .yt-btn:active, .btn:active,
+    .reset-day-btn:active, .final-reset-btn:active, .card-media:active{
+      transform: none !important;
+    }
   }
 
   @media (min-width: 600px){
