@@ -306,38 +306,46 @@
     line-height:1.2;
   }
 
-  /* ---------- Collapsible exercise info: subtle secondary control ---------- */
+  /* ---------- Collapsible exercise info: full-width, quiet secondary control ---------- */
   .ex-info{ }
   .ex-info > summary{
     list-style:none;
     cursor:pointer;
-    display:inline-flex;
+    display:flex;
+    width:100%;
     align-items:center;
+    justify-content:space-between;
     gap:6px;
-    min-height: 32px;
+    min-height: 40px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 6px 12px 6px 10px;
-    font-size: .72rem;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: .76rem;
     font-weight: 700;
     color: var(--text-dim);
     -webkit-tap-highlight-color: transparent;
   }
   .ex-info > summary::-webkit-details-marker{ display:none; }
+  .ex-info[open] > summary{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+  }
   .ex-info-chevron{
     display:inline-flex;
+    flex-shrink:0;
     color: var(--text-faint);
     transition: transform .15s ease;
   }
-  .ex-info-chevron svg{ width:12px; height:12px; }
+  .ex-info-chevron svg{ width:14px; height:14px; }
   .ex-info[open] .ex-info-chevron{ transform: rotate(180deg); }
   .ex-info-body{
-    margin-top: 6px;
-    padding: 10px 12px;
+    padding: 10px 12px 12px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
     display:flex;
     flex-direction:column;
     gap: 4px;
@@ -358,13 +366,17 @@
     color: var(--text-faint);
   }
 
-  /* ---------- Action row: YouTube (secondary) + Completion (primary) ---------- */
+  /* ---------- Action row: right-aligned, compact YouTube (secondary) + Completion (primary) ---------- */
   .card-actions{
     display:flex;
-    gap: 8px;
+    justify-content:flex-end;
+    align-items:center;
+    gap: 10px;
+    flex-wrap: wrap;
   }
   .yt-btn{
     flex: 0 0 auto;
+    width:auto;
     display:inline-flex;
     align-items:center;
     gap: 6px;
@@ -373,7 +385,7 @@
     color: var(--text-dim);
     font-size: .78rem;
     font-weight: 700;
-    padding: 0 14px;
+    padding-inline: 16px;
     border-radius: 999px;
     text-decoration:none;
     min-height: 44px;
@@ -381,18 +393,19 @@
   .yt-btn svg{ color: var(--yt-red); flex-shrink:0; }
   .yt-btn:active{ background: var(--border); }
   .done-btn{
-    flex: 1 1 auto;
+    flex: 0 0 auto;
+    width:auto;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap: 8px;
+    gap: 7px;
     background: var(--accent);
     border: 2px solid var(--accent);
     color: #1a0a05;
     font-size: .86rem;
     font-weight: 800;
     letter-spacing: .02em;
-    padding: 0 16px;
+    padding-inline: 16px;
     border-radius: 999px;
     min-height: 46px;
   }
@@ -423,11 +436,6 @@
 
   .card.is-done .ex-name{
     color: var(--text-dim);
-  }
-
-  @media (max-width: 359px){
-    .card-actions{ flex-wrap: wrap; }
-    .yt-btn, .done-btn{ flex: 1 1 100%; }
   }
 
   /* ---------- About / info section ---------- */
