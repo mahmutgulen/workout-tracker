@@ -817,11 +817,32 @@
     </summary>
     <div class="info-body">
       <div class="info-block">
+        <h3>Hareket Sırası</h3>
+        <p>Kartlardaki hareketler her gün için uygulanması önerilen sırayla dizilmiştir.</p>
+        <ul>
+          <li><strong>A Günü:</strong> Göğüs öncelikli olduğu için en taze halde önce bench press ve incline dumbbell press yapılır; bacak ve sırt sonra, izolasyon/kol/baldır en sona bırakılır.</li>
+          <li><strong>B Günü:</strong> Sırt öncelikli olduğu için çekiş hareketleri en başa alınır; biceps sırt çalışmasından sonra ayrıca çalıştırılır.</li>
+          <li><strong>C Günü:</strong> Büyük alt vücut hareketleri en başta yapılır, ardından omuz ve diğer üst vücut bölgeleri tamamlanır.</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h3>Isınma</h3>
+        <ul>
+          <li>5–10 dakika hafif genel ısınma yap.</li>
+          <li>İlk büyük harekette birkaç hazırlık seti at; hazırlık setleri çalışma seti olarak sayılmaz.</li>
+        </ul>
+        <div class="progression-example">
+          Örnek — çalışma kilon 80 kg ise
+          <code>20 kg × 15 / 40 kg × 8 / 60 kg × 4–5 / ardından çalışma setleri</code>
+        </div>
+        <p>Aynı prensibi leg press, Romanian deadlift ve diğer ağır temel hareketlerde de uygula.</p>
+      </div>
+      <div class="info-block">
         <h3>Yoğunluk ve Uygulama</h3>
         <ul>
           <li>Bench press, Romanian deadlift, leg press, row gibi büyük hareketlerde çoğunlukla 1–2 RIR bırak.</li>
           <li>Curl, pushdown, lateral raise gibi izolasyon hareketlerinde 0–2 RIR aralığında çalış.</li>
-          <li>Form bozuluyorsa seti bitir; tekrar sayısı uğruna tekniği bozma.</li>
+          <li>Form bozuluyorsa seti bitir; tekrar uğruna tekniği bozma.</li>
           <li>Büyük hareketlerde dinlenme: 2–3 dakika.</li>
           <li>İzolasyonlarda dinlenme: 60–90 saniye.</li>
         </ul>
@@ -887,16 +908,16 @@
       title: "Full Body A",
       subtitle: "Göğüs / Triceps",
       exercises: [
-        { name: "Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leg_Press", ytId: "cDGOn-yfKJA",
-          info: { target: "Ön kuadriseps", secondary: "Kalça ve hamstring", cue: "Ayaklarını omuz genişliğinde yerleştir, dizlerini içe çökertme." } },
-        { name: "Leg Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Seated_Leg_Curl", ytId: "jxctD6fL_FQ",
-          info: { target: "Hamstring (arka bacak)", secondary: "Baldır", cue: "Hareketi yavaş kontrol et, kalçanı yastıktan kaldırma." } },
         { name: "Bench Press", sets: "4 × 5–8", type: "compound", focus: true, img: "Barbell_Bench_Press_-_Medium_Grip", ytId: "Qjxrp9Hwv_Q",
           info: { target: "Göğüs (pektoral)", secondary: "Ön omuz ve triceps", cue: "Kürek kemiklerini sıkıştır, barı göğüs hizasına kontrollü indir." } },
         { name: "Incline Dumbbell Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Incline_Dumbbell_Press", ytId: "oZVCBM9f8Eo",
           info: { target: "Üst göğüs", secondary: "Ön omuz ve triceps", cue: "Bilekleri kilitli tut, dumbbell'ları göğsün üst hizasına indir." } },
+        { name: "Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leg_Press", ytId: "cDGOn-yfKJA",
+          info: { target: "Ön kuadriseps", secondary: "Kalça ve hamstring", cue: "Ayaklarını omuz genişliğinde yerleştir, dizlerini içe çökertme." } },
         { name: "Chest-Supported Row", sets: "3 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "h2Xafysr43E",
           info: { target: "Orta sırt (rhomboid, lat)", secondary: "Arka omuz ve biceps", cue: "Göğsünü desteğe yasla, momentum kullanmadan dirsekleri geriye çek." } },
+        { name: "Leg Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Seated_Leg_Curl", ytId: "jxctD6fL_FQ",
+          info: { target: "Hamstring (arka bacak)", secondary: "Baldır", cue: "Hareketi yavaş kontrol et, kalçanı yastıktan kaldırma." } },
         { name: "Lat Pulldown", sets: "2 × 8–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "S0no-Q03h74",
           info: { target: "Kanat kasları (lat)", secondary: "Biceps", cue: "Barı çeneye doğru çekerken göğsünü hafif dışa çıkar." } },
         { name: "Lateral Raise", sets: "2 × 12–20", type: "isolation", focus: false, img: "Side_Lateral_Raise", ytId: "LT1Eo-q58yg",
@@ -914,16 +935,16 @@
       title: "Full Body B",
       subtitle: "Sırt / Biceps",
       exercises: [
-        { name: "Hack Squat veya Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Hack_Squat", ytId: "plv5ur26Q7A",
-          info: { target: "Kuadriseps", secondary: "Kalça ve hamstring", cue: "Sırtını sabitle, dizlerini ayak ucu hizasında tut." } },
-        { name: "Romanian Deadlift", sets: "2 × 8–10", type: "compound", focus: false, img: "Romanian_Deadlift", ytId: "e1pFg9Rz55k",
-          info: { target: "Hamstring", secondary: "Kalça (gluteus)", cue: "Sırtı düz tut, kalçayı geriye iterek barı bacak boyunca kaydır." } },
-        { name: "Incline Machine Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leverage_Incline_Chest_Press", ytId: "LiDArz1R2NU",
-          info: { target: "Üst göğüs", secondary: "Ön omuz ve triceps", cue: "Sırtını sabitle, hareketi kontrollü ve tam açıklıkta yap." } },
         { name: "Neutral-Grip Lat Pulldown", sets: "3 × 8–12", type: "compound", focus: true, img: "Close-Grip_Front_Lat_Pulldown", ytId: "ecRF8ERf2q4",
           info: { target: "Orta sırt ve lat", secondary: "Biceps", cue: "Nötr tutuşla dirsekleri aşağı-geriye çek." } },
         { name: "Seated Cable Row", sets: "3 × 8–12", type: "compound", focus: true, img: "Seated_Cable_Rows", ytId: "IzoCF_b3cIY",
           info: { target: "Orta sırt", secondary: "Biceps ve arka omuz", cue: "Gövdeni sabit tut, kürek kemiklerini sıkıştırarak çek." } },
+        { name: "Romanian Deadlift", sets: "2 × 8–10", type: "compound", focus: false, img: "Romanian_Deadlift", ytId: "e1pFg9Rz55k",
+          info: { target: "Hamstring", secondary: "Kalça (gluteus)", cue: "Sırtı düz tut, kalçayı geriye iterek barı bacak boyunca kaydır." } },
+        { name: "Hack Squat veya Leg Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Hack_Squat", ytId: "plv5ur26Q7A",
+          info: { target: "Kuadriseps", secondary: "Kalça ve hamstring", cue: "Sırtını sabitle, dizlerini ayak ucu hizasında tut." } },
+        { name: "Incline Machine Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Leverage_Incline_Chest_Press", ytId: "LiDArz1R2NU",
+          info: { target: "Üst göğüs", secondary: "Ön omuz ve triceps", cue: "Sırtını sabitle, hareketi kontrollü ve tam açıklıkta yap." } },
         { name: "Shoulder Press", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Shoulder_Press", ytId: "tzZMsrzG_zE",
           info: { target: "Omuz (deltoid)", secondary: "Triceps", cue: "Belini kamburlaştırmadan ağırlığı düz yukarı it." } },
         { name: "Reverse Pec Deck", sets: "2 × 12–20", type: "isolation", focus: false, img: "Reverse_Flyes", ytId: "e4dJ1QoxUtI",
@@ -945,14 +966,14 @@
           info: { target: "Ön kuadriseps", secondary: "Kalça ve hamstring", cue: "Ayaklarını omuz genişliğinde yerleştir, dizlerini içe çökertme." } },
         { name: "Romanian Deadlift", sets: "3 × 8–10", type: "compound", focus: true, img: "Romanian_Deadlift", ytId: "e1pFg9Rz55k",
           info: { target: "Hamstring", secondary: "Kalça (gluteus)", cue: "Sırtı düz tut, kalçayı geriye iterek barı bacak boyunca kaydır." } },
+        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", ytId: "tzZMsrzG_zE",
+          info: { target: "Omuz (deltoid)", secondary: "Triceps", cue: "Belini kamburlaştırmadan ağırlığı düz yukarı it." } },
         { name: "Machine Chest Press", sets: "3 × 8–12", type: "compound", focus: false, img: "Leverage_Chest_Press", ytId: "rY0B8UFdne0",
           info: { target: "Göğüs", secondary: "Ön omuz ve triceps", cue: "Sırtını sabitle, tutamaçları kontrollü it." } },
         { name: "Chest-Supported Row", sets: "2 × 8–12", type: "compound", focus: false, img: "Dumbbell_Incline_Row", ytId: "h2Xafysr43E",
           info: { target: "Orta sırt (rhomboid, lat)", secondary: "Arka omuz ve biceps", cue: "Göğsünü desteğe yasla, momentum kullanmadan dirsekleri geriye çek." } },
         { name: "Lat Pulldown", sets: "2 × 10–12", type: "compound", focus: false, img: "Wide-Grip_Lat_Pulldown", ytId: "S0no-Q03h74",
           info: { target: "Kanat kasları (lat)", secondary: "Biceps", cue: "Barı çeneye doğru çekerken göğsünü hafif dışa çıkar." } },
-        { name: "Shoulder Press", sets: "3 × 8–12", type: "compound", focus: true, img: "Dumbbell_Shoulder_Press", ytId: "tzZMsrzG_zE",
-          info: { target: "Omuz (deltoid)", secondary: "Triceps", cue: "Belini kamburlaştırmadan ağırlığı düz yukarı it." } },
         { name: "Lateral Raise", sets: "3 × 12–20", type: "isolation", focus: true, img: "Side_Lateral_Raise", ytId: "LT1Eo-q58yg",
           info: { target: "Yan omuz (lateral deltoid)", secondary: "Üst trapez", cue: "Dirseklerle öncülük et, momentum kullanma." } },
         { name: "Hammer Curl", sets: "2 × 10–15", type: "isolation", focus: false, img: "Hammer_Curls", ytId: "0IAM2YtviQY",
@@ -970,7 +991,10 @@
     isolation: "Dinlenme: 60–90 sn · 0–2 RIR"
   };
 
-  var STORAGE_KEY = "fullbody3_progress_v1";
+  /* v2: exercise order within each day changed (antrenman.md reorder), which shifts the
+     positional part of every exercise id. Bumping the key prevents old completion data
+     from silently re-attaching to a different exercise that now sits at the same index. */
+  var STORAGE_KEY = "fullbody3_progress_v2";
   var DAY_STATE_KEY = "fullbody3_day_open_v1";
 
   /* ============ Helpers ============ */

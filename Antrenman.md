@@ -1,6 +1,7 @@
-# 3 Günlük Vurgulu Full Body Programı
+# 3 Günlük Vurgulu Full Body Programı — Güncellenmiş Sıralama
 
-Bu sistemde haftada 3 gün full body çalışılır.  
+Bu sistemde haftada 3 gün full body çalışılır.
+
 Her antrenmanda tüm vücut çalışır ancak her günün belirgin bir önceliği vardır:
 
 - **A Günü:** Göğüs / Triceps vurgulu
@@ -13,56 +14,89 @@ Her antrenmanda tüm vücut çalışır ancak her günün belirgin bir önceliğ
 - **Çarşamba:** Full Body B
 - **Cuma:** Full Body C
 
+> Hareketler aşağıda **uygulanmasını önerdiğim sıraya göre** yazılmıştır.
+
 ---
 
 ## Full Body A — Göğüs / Triceps Vurgulu
 
-| Hareket | Set × Tekrar |
-|---|---:|
-| Leg Press | 2 × 8–12 |
-| Leg Curl | 2 × 10–15 |
-| **Bench Press** | **4 × 5–8** |
-| **Incline Dumbbell Press** | **3 × 8–12** |
-| Chest-Supported Row | 3 × 8–12 |
-| Lat Pulldown | 2 × 8–12 |
-| Lateral Raise | 2 × 12–20 |
-| **Triceps Pushdown** | **3 × 10–15** |
-| EZ-Bar Curl | 2 × 10–15 |
-| Calf Raise | 2 × 12–20 |
+| Sıra | Hareket | Set × Tekrar |
+|---:|---|---:|
+| 1 | **Bench Press** | **4 × 5–8** |
+| 2 | **Incline Dumbbell Press** | **3 × 8–12** |
+| 3 | Leg Press | 2 × 8–12 |
+| 4 | Chest-Supported Row | 3 × 8–12 |
+| 5 | Leg Curl | 2 × 10–15 |
+| 6 | Lat Pulldown | 2 × 8–12 |
+| 7 | Lateral Raise | 2 × 12–20 |
+| 8 | **Triceps Pushdown** | **3 × 10–15** |
+| 9 | EZ-Bar Curl | 2 × 10–15 |
+| 10 | Calf Raise | 2 × 12–20 |
+
+### A Gününün Mantığı
+Öncelik göğüs olduğu için en taze halde önce bench press ve incline dumbbell press yapılır.  
+Ardından bacak ve sırt hareketleri gelir. İzolasyon, kol ve baldır hareketleri sona bırakılır.
 
 ---
 
 ## Full Body B — Sırt / Biceps Vurgulu
 
-| Hareket | Set × Tekrar |
-|---|---:|
-| Hack Squat veya Leg Press | 2 × 8–12 |
-| Romanian Deadlift | 2 × 8–10 |
-| Incline Machine Press | 2 × 8–12 |
-| **Neutral-Grip Lat Pulldown** | **3 × 8–12** |
-| **Seated Cable Row** | **3 × 8–12** |
-| Shoulder Press | 2 × 8–12 |
-| Reverse Pec Deck | 2 × 12–20 |
-| **Incline Dumbbell Curl** | **3 × 10–15** |
-| Overhead Cable Triceps Extension | 2 × 10–15 |
-| Calf Raise | 2 × 12–20 |
+| Sıra | Hareket | Set × Tekrar |
+|---:|---|---:|
+| 1 | **Neutral-Grip Lat Pulldown** | **3 × 8–12** |
+| 2 | **Seated Cable Row** | **3 × 8–12** |
+| 3 | Romanian Deadlift | 2 × 8–10 |
+| 4 | Hack Squat veya Leg Press | 2 × 8–12 |
+| 5 | Incline Machine Press | 2 × 8–12 |
+| 6 | Shoulder Press | 2 × 8–12 |
+| 7 | Reverse Pec Deck | 2 × 12–20 |
+| 8 | **Incline Dumbbell Curl** | **3 × 10–15** |
+| 9 | Overhead Cable Triceps Extension | 2 × 10–15 |
+| 10 | Calf Raise | 2 × 12–20 |
+
+### B Gününün Mantığı
+Bu gün sırt öncelikli olduğu için çekiş hareketleri en başa alınır.  
+Biceps, sırt çalışmasından sonra doğrudan ayrıca çalıştırılır.
 
 ---
 
 ## Full Body C — Bacak / Omuz Vurgulu
 
-| Hareket | Set × Tekrar |
-|---|---:|
-| **Leg Press veya Hack Squat** | **4 × 8–12** |
-| **Romanian Deadlift** | **3 × 8–10** |
-| Machine Chest Press | 3 × 8–12 |
-| Chest-Supported Row | 2 × 8–12 |
-| Lat Pulldown | 2 × 10–12 |
-| **Shoulder Press** | **3 × 8–12** |
-| **Lateral Raise** | **3 × 12–20** |
-| Hammer Curl | 2 × 10–15 |
-| Rope Pushdown | 2 × 10–15 |
-| Calf Raise | 2 × 12–20 |
+| Sıra | Hareket | Set × Tekrar |
+|---:|---|---:|
+| 1 | **Leg Press veya Hack Squat** | **4 × 8–12** |
+| 2 | **Romanian Deadlift** | **3 × 8–10** |
+| 3 | **Shoulder Press** | **3 × 8–12** |
+| 4 | Machine Chest Press | 3 × 8–12 |
+| 5 | Chest-Supported Row | 2 × 8–12 |
+| 6 | Lat Pulldown | 2 × 10–12 |
+| 7 | **Lateral Raise** | **3 × 12–20** |
+| 8 | Hammer Curl | 2 × 10–15 |
+| 9 | Rope Pushdown | 2 × 10–15 |
+| 10 | Calf Raise | 2 × 12–20 |
+
+### C Gününün Mantığı
+Bacak ve omuzlar günün ana odağıdır.  
+Büyük alt vücut hareketleri en başta yapılır, ardından omuz ve diğer üst vücut bölgeleri tamamlanır.
+
+---
+
+## Isınma
+
+Antrenmana başlamadan önce:
+
+- **5–10 dakika hafif genel ısınma**
+- İlk büyük harekette birkaç hazırlık seti
+- Hazırlık setleri çalışma seti olarak sayılmaz
+
+Örnek bench press çalışma kilon 80 kg ise:
+
+- 20 kg × 15
+- 40 kg × 8
+- 60 kg × 4–5
+- Ardından çalışma setleri
+
+Aynı prensibi leg press, Romanian deadlift ve diğer ağır temel hareketlerde de uygula.
 
 ---
 
@@ -70,7 +104,7 @@ Her antrenmanda tüm vücut çalışır ancak her günün belirgin bir önceliğ
 
 - Bench press, Romanian deadlift, leg press, row gibi büyük hareketlerde çoğunlukla **1–2 RIR** bırak.
 - Curl, pushdown, lateral raise gibi izolasyon hareketlerinde **0–2 RIR** aralığında çalış.
-- Form bozuluyorsa seti bitir; tekrar sayısı uğruna tekniği bozma.
+- Form bozuluyorsa seti bitir; tekrar uğruna tekniği bozma.
 - Büyük hareketlerde dinlenme: **2–3 dakika**
 - İzolasyonlarda dinlenme: **60–90 saniye**
 
